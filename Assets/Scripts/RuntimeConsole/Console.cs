@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public enum MessageType
 {
@@ -15,6 +16,7 @@ namespace TOMICZ.RuntimeConsole
 
         private RectTransform _consoleRect;
         private MessageType _messageType;
+        private bool _isConsoleTransparent = false;
 
         private void Awake()
         {
@@ -36,6 +38,20 @@ namespace TOMICZ.RuntimeConsole
 
         public void DragToExpandConsole() => SetRectSize(_consoleRect, new Vector2(0, Input.mousePosition.y));
 
+        public void SetUIElementTransparent(Image image)
+        {
+            if (!_isConsoleTransparent)
+            {
+                SetImageAlpha(image, 0);
+                _isConsoleTransparent = true;
+            }
+            else
+            {
+                SetImageAlpha(image, 1);
+                _isConsoleTransparent = false;
+            }
+        }
+
         private void SetRectSize(RectTransform rect, Vector2 newSize) => rect.sizeDelta = newSize;
 
         private string GetMessageType(MessageType messageType)
@@ -45,10 +61,18 @@ namespace TOMICZ.RuntimeConsole
                 case MessageType.Error:
                     return " * <color=red>[Error]</color> ";
                 case MessageType.Log:
-                    return " * <color=green>[Log]</color> ";
+                    return " * <color=white>[Log]</color> ";
             }
 
             return "message-empty";
+        }
+
+        private void SetImageAlpha(Image image, float alphaAmount)
+        {
+            Color tempColor = image.color;
+            tempColor.a = alphaAmount;
+
+            image.color = tempColor;
         }
     }
 }
