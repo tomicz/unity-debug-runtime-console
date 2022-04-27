@@ -15,7 +15,6 @@ namespace TOMICZ.RuntimeConsole
         [SerializeField] private TMP_Text _consoleText;
 
         private RectTransform _consoleRect;
-        private MessageType _messageType;
         private bool _isConsoleTransparent = false;
 
         private void Awake()
@@ -71,7 +70,6 @@ namespace TOMICZ.RuntimeConsole
         {
             Color tempColor = image.color;
             tempColor.a = alphaAmount;
-
             image.color = tempColor;
         }
     }
