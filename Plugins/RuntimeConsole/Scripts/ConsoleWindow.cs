@@ -4,10 +4,19 @@ using UnityEngine.UI;
 
 namespace TOMICZ
 {
+    public enum MessageType
+    {
+        Error,
+        Log,
+        Loop,
+        Header
+    }
+
     public class ConsoleWindow : MonoBehaviour
     {
         [Header("Dependencies")]
         [SerializeField] private TMP_Text _consoleText;
+        [SerializeField] private TMP_Text _loopText;
 
         private RectTransform _consoleRect;
         private bool _isConsoleTransparent = false;
@@ -24,11 +33,26 @@ namespace TOMICZ
             _consoleRect = GetComponent<RectTransform>();
         }
 
-        public void PrintMessage(MessageType messageType, string text)
+        public void PrintMessage(MessageType messageType, string message)
         {
             if (_consoleText.text != null)
             {
-                _consoleText.text += GetMessageType(messageType) + text + "\n";
+                switch (messageType)
+                {
+                    case MessageType.Error:
+                        _consoleText.text += GetMessageType(MessageType.Error) + message + "\n";
+                        break;
+                    case MessageType.Log:
+                        _consoleText.text += GetMessageType(MessageType.Log) + message + "\n";
+                        break;
+                    case MessageType.Loop:
+                        _loopText.text = GetMessageType(MessageType.Loop) + message;
+                        break;
+                    case MessageType.Header:
+                        _consoleText.text += GetMessageType(MessageType.Header) + message + "\n";
+                        break;
+
+                }
             }
         }
 
@@ -58,8 +82,10 @@ namespace TOMICZ
                     return " * <color=red>[Error]</color> ";
                 case MessageType.Log:
                     return " * <color=white>[Log]</color> ";
-                case MessageType.Null:
-                    return " * ";
+                case MessageType.Loop:
+                    return " * <color=yellow>[Loop0]</color> ";
+                case MessageType.Header:
+                    return " * <color=yellow>[Header]</color> ";
             }
 
             return "message-empty";

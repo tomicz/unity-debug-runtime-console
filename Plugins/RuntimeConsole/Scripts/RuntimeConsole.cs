@@ -2,13 +2,6 @@ using UnityEngine;
 
 namespace TOMICZ
 {
-    public enum MessageType
-    {
-        Error,
-        Log,
-        Null
-    }
-
     public static class RuntimeConsole
     {
         private static ConsoleWindow _consoleWindow;
@@ -28,17 +21,6 @@ namespace TOMICZ
             if (HasConsole())
             {
                 WriteMessage(messageType, message);
-            }
-        }
-
-        /// <summary>
-        /// Prints underline in Console Window. Useful for seperating messages into blocks.
-        /// </summary>
-        public static void PrintUnderline()
-        {
-            if (HasConsole())
-            {
-                PrintMessage(MessageType.Null, "----------------------------- *");
             }
         }
 
