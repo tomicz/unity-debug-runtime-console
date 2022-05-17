@@ -9,7 +9,7 @@ namespace TOMICZ
         Error,
         Log,
         Loop,
-        Break
+        Header
     }
 
     public class ConsoleWindow : MonoBehaviour
@@ -48,8 +48,8 @@ namespace TOMICZ
                     case MessageType.Loop:
                         _loopText.text = GetMessageType(MessageType.Loop) + message;
                         break;
-                    case MessageType.Break:
-                        _consoleText.text += GetMessageType(MessageType.Break) + "----------------------------- *" + "\n";
+                    case MessageType.Header:
+                        _consoleText.text += GetMessageType(MessageType.Header) + message + "\n";
                         break;
 
                 }
@@ -84,8 +84,8 @@ namespace TOMICZ
                     return " * <color=white>[Log]</color> ";
                 case MessageType.Loop:
                     return " * <color=yellow>[Loop0]</color> ";
-                case MessageType.Break:
-                    return " * ";
+                case MessageType.Header:
+                    return " * <color=yellow>[Header]</color> ";
             }
 
             return "message-empty";
