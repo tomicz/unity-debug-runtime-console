@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-namespace TOMICZ
+namespace TOMICZ.Debugger
 {
     public enum MessageType
     {
@@ -19,6 +19,7 @@ namespace TOMICZ
         [SerializeField] private TMP_Text _loopText;
 
         private RectTransform _consoleRect;
+        private ConsoleWindowProperties _consoleWindowProperties;
         private bool _isConsoleTransparent = false;
 
         private void Awake()
@@ -31,6 +32,12 @@ namespace TOMICZ
             RuntimeConsole.SetupConsoleWindow(this);
 
             _consoleRect = GetComponent<RectTransform>();
+            _consoleWindowProperties = new ConsoleWindowProperties();
+
+            _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
+
+            SetUIElementsTransparent();
+            SetRectSize(_consoleRect, new Vector2(_consoleRect.sizeDelta.x, _consoleWindowProperties.GetWindowHeight()));
         }
 
         public void PrintMessage(MessageType messageType, string message)
@@ -56,23 +63,41 @@ namespace TOMICZ
             }
         }
 
-        public void DragToExpandConsole() => SetRectSize(_consoleRect, new Vector2(0, Input.mousePosition.y));
+        public void DragToExpandConsole()
+        {
+            SetRectSize(_consoleRect, new Vector2(0, _consoleRect.position.y - Input.mousePosition.y));
 
-        public void SetUIElementTransparent(Image image)
+        }
+
+        public void SetUIElementsTransparent()
         {
             if (!_isConsoleTransparent)
             {
-                SetImageAlpha(image, 0);
+                foreach (var element in RuntimeConsole.WindowElementList)
+                {
+                    element.SetBackgroundAlpha(0);
+                }
+
                 _isConsoleTransparent = true;
+                _consoleWindowProperties.CacheTransparencyValue(true);
             }
             else
             {
-                SetImageAlpha(image, 1);
+                foreach (var element in RuntimeConsole.WindowElementList)
+                {
+                    element.SetBackgroundAlpha(1);
+                }
+
                 _isConsoleTransparent = false;
+                _consoleWindowProperties.CacheTransparencyValue(false);
             }
         }
 
-        private void SetRectSize(RectTransform rect, Vector2 newSize) => rect.sizeDelta = newSize;
+        private void SetRectSize(RectTransform rect, Vector2 newSize)
+        {
+            rect.sizeDelta = newSize;
+            _consoleWindowProperties.ChacheWindowHeight(newSize.y);
+        }
 
         private string GetMessageType(MessageType messageType)
         {
@@ -89,13 +114,6 @@ namespace TOMICZ
             }
 
             return "message-empty";
-        }
-
-        private void SetImageAlpha(Image image, float alphaAmount)
-        {
-            Color tempColor = image.color;
-            tempColor.a = alphaAmount;
-            image.color = tempColor;
         }
     }
 }
