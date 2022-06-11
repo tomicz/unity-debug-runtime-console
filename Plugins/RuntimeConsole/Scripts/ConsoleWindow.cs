@@ -20,6 +20,7 @@ namespace TOMICZ.Debugger
 
         private RectTransform _consoleRect;
         private ConsoleWindowProperties _consoleWindowProperties;
+        private ScrollRect _scrollRect;
         private bool _isConsoleTransparent = false;
 
         private void Awake()
@@ -33,6 +34,7 @@ namespace TOMICZ.Debugger
 
             _consoleRect = GetComponent<RectTransform>();
             _consoleWindowProperties = new ConsoleWindowProperties();
+            _scrollRect = GetComponentInChildren<ScrollRect>();
 
             _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
 
@@ -48,17 +50,19 @@ namespace TOMICZ.Debugger
                 {
                     case MessageType.Error:
                         _consoleText.text += GetMessageType(MessageType.Error) + message + "\n";
+                        UpdateScrollOnNewInput();
                         break;
                     case MessageType.Log:
                         _consoleText.text += GetMessageType(MessageType.Log) + message + "\n";
+                        UpdateScrollOnNewInput();
                         break;
                     case MessageType.Loop:
                         _loopText.text = GetMessageType(MessageType.Loop) + message;
                         break;
                     case MessageType.Header:
                         _consoleText.text += GetMessageType(MessageType.Header) + message + "\n";
+                        UpdateScrollOnNewInput();
                         break;
-
                 }
             }
         }
@@ -92,6 +96,8 @@ namespace TOMICZ.Debugger
                 _consoleWindowProperties.CacheTransparencyValue(false);
             }
         }
+
+        private void UpdateScrollOnNewInput() => _scrollRect.verticalNormalizedPosition = 0;
 
         private void SetRectSize(RectTransform rect, Vector2 newSize)
         {
