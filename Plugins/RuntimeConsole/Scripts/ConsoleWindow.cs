@@ -19,8 +19,8 @@ namespace TOMICZ.Debugger
         [SerializeField] private TMP_Text _loopText;
 
         private RectTransform _consoleRect;
-        private bool _isConsoleTransparent = false;
         private ConsoleWindowProperties _consoleWindowProperties;
+        private bool _isConsoleTransparent = false;
 
         private void Awake()
         {
@@ -37,6 +37,7 @@ namespace TOMICZ.Debugger
             _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
 
             SetUIElementsTransparent();
+            SetRectSize(_consoleRect, new Vector2(_consoleRect.sizeDelta.x, _consoleWindowProperties.GetWindowHeight()));
         }
 
         public void PrintMessage(MessageType messageType, string message)
@@ -65,6 +66,7 @@ namespace TOMICZ.Debugger
         public void DragToExpandConsole()
         {
             SetRectSize(_consoleRect, new Vector2(0, _consoleRect.position.y - Input.mousePosition.y));
+
         }
 
         public void SetUIElementsTransparent()
@@ -77,7 +79,7 @@ namespace TOMICZ.Debugger
                 }
 
                 _isConsoleTransparent = true;
-                _consoleWindowProperties.SetTransperancyValue(true);
+                _consoleWindowProperties.CacheTransparencyValue(true);
             }
             else
             {
@@ -87,11 +89,15 @@ namespace TOMICZ.Debugger
                 }
 
                 _isConsoleTransparent = false;
-                _consoleWindowProperties.SetTransperancyValue(false);
+                _consoleWindowProperties.CacheTransparencyValue(false);
             }
         }
 
-        private void SetRectSize(RectTransform rect, Vector2 newSize) => rect.sizeDelta = newSize;
+        private void SetRectSize(RectTransform rect, Vector2 newSize)
+        {
+            rect.sizeDelta = newSize;
+            _consoleWindowProperties.ChacheWindowHeight(newSize.y);
+        }
 
         private string GetMessageType(MessageType messageType)
         {

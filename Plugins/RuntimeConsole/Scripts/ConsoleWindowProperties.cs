@@ -5,8 +5,9 @@ namespace TOMICZ.Debugger
     public class ConsoleWindowProperties
     {
         private string _transperancyEnabled = "transperancyEnabled";
+        private string _windowHeight = "windowHeight";
 
-        public void SetTransperancyValue(bool value)
+        public void CacheTransparencyValue(bool value)
         {
             if(value)
             {
@@ -31,6 +32,18 @@ namespace TOMICZ.Debugger
             }
 
             return true;
+        }
+
+        public void ChacheWindowHeight(float height) => PlayerPrefs.SetFloat(_windowHeight, height);
+
+        public float GetWindowHeight()
+        {
+            if (PlayerPrefs.HasKey(_windowHeight))
+            {
+                return PlayerPrefs.GetFloat(_windowHeight);
+            }
+
+            return 480;
         }
     }
 }
