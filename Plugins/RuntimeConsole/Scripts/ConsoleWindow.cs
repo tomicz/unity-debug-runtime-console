@@ -56,7 +56,10 @@ namespace TOMICZ
             }
         }
 
-        public void DragToExpandConsole() => SetRectSize(_consoleRect, new Vector2(0, Input.mousePosition.y));
+        public void DragToExpandConsole()
+        {
+            SetRectSize(_consoleRect, new Vector2(0, _consoleRect.position.y - Input.mousePosition.y));
+        }
 
         public void SetUIElementTransparent(Image image)
         {
