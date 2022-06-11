@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TOMICZ.Debugger
@@ -6,9 +7,16 @@ namespace TOMICZ.Debugger
     {
         private static ConsoleWindow _consoleWindow;
 
+        public static List<WindowElement> WindowElementList = new List<WindowElement>();
+
         public static void SetupConsoleWindow(ConsoleWindow consoleWindow)
         {
             _consoleWindow = consoleWindow;
+        }
+
+        public static void AddWindowElement(WindowElement windowElement)
+        {
+            WindowElementList.Add(windowElement);
         }
 
         /// <summary>

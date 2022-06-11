@@ -21,7 +21,6 @@ namespace TOMICZ.Debugger
         private RectTransform _consoleRect;
         private bool _isConsoleTransparent = false;
         private ConsoleWindowProperties _consoleWindowProperties;
-         private Image _backgroundImage;
 
         private void Awake()
         {
@@ -33,12 +32,11 @@ namespace TOMICZ.Debugger
             RuntimeConsole.SetupConsoleWindow(this);
 
             _consoleRect = GetComponent<RectTransform>();
-            _backgroundImage = GetComponent<Image>();
             _consoleWindowProperties = new ConsoleWindowProperties();
 
             _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
 
-            SetUIElementTransparent(_backgroundImage);
+            SetUIElementsTransparent();
         }
 
         public void PrintMessage(MessageType messageType, string message)
@@ -69,17 +67,25 @@ namespace TOMICZ.Debugger
             SetRectSize(_consoleRect, new Vector2(0, _consoleRect.position.y - Input.mousePosition.y));
         }
 
-        public void SetUIElementTransparent(Image image)
+        public void SetUIElementsTransparent()
         {
             if (!_isConsoleTransparent)
             {
-                SetImageAlpha(image, 0);
+                foreach (var element in RuntimeConsole.WindowElementList)
+                {
+                    element.SetBackgroundAlpha(0);
+                }
+
                 _isConsoleTransparent = true;
                 _consoleWindowProperties.SetTransperancyValue(true);
             }
             else
             {
-                SetImageAlpha(image, 1);
+                foreach (var element in RuntimeConsole.WindowElementList)
+                {
+                    element.SetBackgroundAlpha(1);
+                }
+
                 _isConsoleTransparent = false;
                 _consoleWindowProperties.SetTransperancyValue(false);
             }
@@ -102,13 +108,6 @@ namespace TOMICZ.Debugger
             }
 
             return "message-empty";
-        }
-
-        private void SetImageAlpha(Image image, float alphaAmount)
-        {
-            Color tempColor = image.color;
-            tempColor.a = alphaAmount;
-            image.color = tempColor;
         }
     }
 }

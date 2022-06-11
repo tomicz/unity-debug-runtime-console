@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 1208396438326195352}
   - component: {fileID: 119485185920333910}
   - component: {fileID: 504348175128545997}
+  - component: {fileID: 1413106460}
   m_Layer: 5
   m_Name: CommandField
   m_TagString: Untagged
@@ -311,6 +312,18 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &1413106460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047282452710577180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2679060406540896792
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,6 +335,7 @@ GameObject:
   - component: {fileID: 6791392095710164492}
   - component: {fileID: 6284522547456923213}
   - component: {fileID: 4147092816225153659}
+  - component: {fileID: 574521905}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -387,6 +401,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &574521905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2679060406540896792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4089516775691571167
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,6 +1104,7 @@ GameObject:
   - component: {fileID: 7896174972223120332}
   - component: {fileID: 7896174972223120333}
   - component: {fileID: 7896174972223120371}
+  - component: {fileID: 1987395801}
   m_Layer: 5
   m_Name: ConsoleWindow
   m_TagString: Untagged
@@ -1160,6 +1187,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _consoleText: {fileID: 7896174973144868562}
   _loopText: {fileID: 1782840418}
+--- !u!114 &1987395801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896174972223120335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7896174972331375811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,12 +1579,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7896174972223120371}
-        m_TargetAssemblyTypeName: TOMICZ.RuntimeConsole.Console, Assembly-CSharp
-        m_MethodName: SetUIElementTransparent
-        m_Mode: 2
+        m_TargetAssemblyTypeName: TOMICZ.Debugger.ConsoleWindow, Assembly-CSharp-firstpass
+        m_MethodName: SetUIElementsTransparent
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 7896174972223120333}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2455,10 +2494,10 @@ RectTransform:
   m_Father: {fileID: 7896174973242335122}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 380, y: 0}
-  m_SizeDelta: {x: 760, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7896174973144868561
 CanvasRenderer:
