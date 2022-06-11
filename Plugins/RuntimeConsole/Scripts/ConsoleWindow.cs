@@ -17,11 +17,13 @@ namespace TOMICZ.Debugger
         [Header("Dependencies")]
         [SerializeField] private TMP_Text _consoleText;
         [SerializeField] private TMP_Text _loopText;
+        [SerializeField] private Image[] _raycastImages;
 
         private RectTransform _consoleRect;
         private ConsoleWindowProperties _consoleWindowProperties;
         private ScrollRect _scrollRect;
         private bool _isConsoleTransparent = false;
+        private bool _isRaycastingEnabled = true;
 
         private void Awake()
         {
@@ -84,6 +86,7 @@ namespace TOMICZ.Debugger
 
                 _isConsoleTransparent = true;
                 _consoleWindowProperties.CacheTransparencyValue(true);
+                PrintMessage(MessageType.Header, "Transperancy mode enabled.");
             }
             else
             {
@@ -94,7 +97,33 @@ namespace TOMICZ.Debugger
 
                 _isConsoleTransparent = false;
                 _consoleWindowProperties.CacheTransparencyValue(false);
+                PrintMessage(MessageType.Header, "Transperancy mode disabled.");
             }
+        }
+
+        public void EnableClickThrough()
+        {
+            if (_isRaycastingEnabled)
+            {
+                PrintMessage(MessageType.Header, "Click through UI mode enabled.");
+                EnableRaycasting(false);
+                _isRaycastingEnabled = false;
+            }
+            else
+            {
+                PrintMessage(MessageType.Header, "Click through UI mode disabled.");
+                EnableRaycasting(true);
+                _isRaycastingEnabled = true;
+            }
+        }
+
+        private void EnableRaycasting(bool value)
+        {
+            foreach (var image in _raycastImages)
+            {
+                image.raycastTarget = value;
+            }
+            _consoleText.raycastTarget = value;
         }
 
         private void UpdateScrollOnNewInput() => _scrollRect.verticalNormalizedPosition = 0;
