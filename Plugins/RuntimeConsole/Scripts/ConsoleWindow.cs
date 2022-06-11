@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-namespace TOMICZ
+namespace TOMICZ.Debugger
 {
     public enum MessageType
     {

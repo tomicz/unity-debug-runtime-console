@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TOMICZ
+namespace TOMICZ.Debugger
 {
     public static class RuntimeConsole
     {
