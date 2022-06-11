@@ -20,6 +20,8 @@ namespace TOMICZ.Debugger
 
         private RectTransform _consoleRect;
         private bool _isConsoleTransparent = false;
+        private ConsoleWindowProperties _consoleWindowProperties;
+         private Image _backgroundImage;
 
         private void Awake()
         {
@@ -31,6 +33,12 @@ namespace TOMICZ.Debugger
             RuntimeConsole.SetupConsoleWindow(this);
 
             _consoleRect = GetComponent<RectTransform>();
+            _backgroundImage = GetComponent<Image>();
+            _consoleWindowProperties = new ConsoleWindowProperties();
+
+            _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
+
+            SetUIElementTransparent(_backgroundImage);
         }
 
         public void PrintMessage(MessageType messageType, string message)
@@ -67,11 +75,13 @@ namespace TOMICZ.Debugger
             {
                 SetImageAlpha(image, 0);
                 _isConsoleTransparent = true;
+                _consoleWindowProperties.SetTransperancyValue(true);
             }
             else
             {
                 SetImageAlpha(image, 1);
                 _isConsoleTransparent = false;
+                _consoleWindowProperties.SetTransperancyValue(false);
             }
         }
 
