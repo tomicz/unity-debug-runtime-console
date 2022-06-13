@@ -83,7 +83,7 @@ namespace TOMICZ.Debugger
             {
                 foreach (var element in RuntimeConsole.WindowElementList)
                 {
-                    element.SetBackgroundAlpha(0);
+                    element.EnableTransperancy();
                 }
 
                 _isConsoleTransparent = true;
@@ -94,7 +94,7 @@ namespace TOMICZ.Debugger
             {
                 foreach (var element in RuntimeConsole.WindowElementList)
                 {
-                    element.SetBackgroundAlpha(1);
+                    element.DisableTransperancy();
                 }
 
                 _isConsoleTransparent = false;

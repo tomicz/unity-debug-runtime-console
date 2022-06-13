@@ -5,6 +5,9 @@ namespace TOMICZ.Debugger
 {
     public class WindowElement : MonoBehaviour
     {
+        [Header("Element properties")]
+        [SerializeField] private float _elementAlphaTransperancy = 1f;
+
         private Image _image;
 
         private void Awake()
@@ -14,7 +17,11 @@ namespace TOMICZ.Debugger
             RuntimeConsole.AddWindowElement(this);
         }
 
-        public void SetBackgroundAlpha(float alphaAmount)
+        public void EnableTransperancy() => SetBackgroundAlpha(_elementAlphaTransperancy);
+
+        public void DisableTransperancy() => SetBackgroundAlpha(1);
+
+        private void SetBackgroundAlpha(float alphaAmount)
         {
             Color tempColor = _image.color;
             tempColor.a = alphaAmount;
