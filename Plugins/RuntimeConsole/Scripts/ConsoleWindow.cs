@@ -17,7 +17,9 @@ namespace TOMICZ.Debugger
         [Header("Dependencies")]
         [SerializeField] private TMP_Text _consoleText;
         [SerializeField] private TMP_Text _loopText;
+        [SerializeField] private Button _expandButton;
         [SerializeField] private Image[] _raycastImages;
+        [SerializeField] private Transform[] _visibleElements;
 
         private RectTransform _consoleRect;
         private ConsoleWindowProperties _consoleWindowProperties;
@@ -153,6 +155,24 @@ namespace TOMICZ.Debugger
             }
 
             return "message-empty";
+        }
+
+        public void ExpandConsole()
+        {
+            foreach(var element in _visibleElements)
+            {
+                element.gameObject.SetActive(true);
+            }
+            _expandButton.gameObject.SetActive(false);
+        }
+
+        public void HideConsole()
+        {
+            foreach (var element in _visibleElements)
+            {
+                element.gameObject.SetActive(false);
+            }
+            _expandButton.gameObject.SetActive(true);
         }
     }
 }
