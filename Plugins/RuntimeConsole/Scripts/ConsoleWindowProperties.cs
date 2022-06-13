@@ -73,5 +73,27 @@ namespace TOMICZ.Debugger
 
             return true;
         }
+
+        /// <summary>
+        /// Persist data state by using key, value properties.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public void SetFloat(string key, float value) => PlayerPrefs.SetFloat(key, value);
+
+        /// <summary>
+        /// Get persist data by key. If returned value is -1 it means that it's null.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public float GetFloat(string key)
+        {
+            if (PlayerPrefs.HasKey(key))
+            {
+                return PlayerPrefs.GetFloat(key);
+            }
+
+            return -1;
+        }
     }
 }
