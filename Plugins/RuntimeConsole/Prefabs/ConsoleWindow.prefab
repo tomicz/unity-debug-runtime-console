@@ -324,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _elementAlphaTransperancy: 0
 --- !u!1 &2679060406540896792
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _elementAlphaTransperancy: 0
 --- !u!1 &2749812788652010144
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,6 +756,7 @@ GameObject:
   - component: {fileID: 6533310307240707984}
   - component: {fileID: 8876998787985580702}
   - component: {fileID: 615686069439076913}
+  - component: {fileID: 1854042116}
   m_Layer: 5
   m_Name: UIButtonClickThrough
   m_TagString: Untagged
@@ -876,6 +879,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1854042116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650148850467893811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _elementAlphaTransperancy: 0.3
 --- !u!1 &7894737819666132816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,6 +1488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _elementAlphaTransperancy: 0
 --- !u!1 &7896174972331375811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,6 +1501,7 @@ GameObject:
   - component: {fileID: 7896174972331375814}
   - component: {fileID: 7896174972331375815}
   - component: {fileID: 7896174972331375808}
+  - component: {fileID: 947571507}
   m_Layer: 5
   m_Name: UIButtonMinimize
   m_TagString: Untagged
@@ -1594,6 +1612,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &947571507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896174972331375811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _elementAlphaTransperancy: 0.3
 --- !u!1 &7896174972358078609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1772,7 @@ GameObject:
   - component: {fileID: 7896174972401294968}
   - component: {fileID: 7896174972401294969}
   - component: {fileID: 7896174972401294970}
+  - component: {fileID: 1725797447}
   m_Layer: 5
   m_Name: UIButtonTransparent
   m_TagString: Untagged
@@ -1863,6 +1895,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1725797447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896174972401294964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _elementAlphaTransperancy: 0.3
 --- !u!1 &7896174972403308713
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,6 +2192,7 @@ GameObject:
   - component: {fileID: 7896174972660045902}
   - component: {fileID: 7896174972660045900}
   - component: {fileID: 7896174972660045901}
+  - component: {fileID: 1554310415}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -2212,6 +2258,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1554310415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896174972660045903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _elementAlphaTransperancy: 0.2
 --- !u!1 &7896174972677923149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,6 +2283,7 @@ GameObject:
   - component: {fileID: 7896174972677923184}
   - component: {fileID: 7896174972677923185}
   - component: {fileID: 7896174972677923186}
+  - component: {fileID: 1889728444}
   m_Layer: 5
   m_Name: UIButtonClose
   m_TagString: Untagged
@@ -2334,6 +2394,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1889728444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896174972677923149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _elementAlphaTransperancy: 0.3
 --- !u!1 &7896174972812424313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,6 +2697,7 @@ GameObject:
   - component: {fileID: 7896174973054973319}
   - component: {fileID: 7896174973054973317}
   - component: {fileID: 7896174973054973318}
+  - component: {fileID: 1223586457}
   m_Layer: 5
   m_Name: DragHeaderArea
   m_TagString: Untagged
@@ -2735,6 +2809,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1223586457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896174973054973314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _elementAlphaTransperancy: 0.2
 --- !u!1 &7896174973144867116
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,6 +3482,7 @@ GameObject:
   - component: {fileID: 57078289162742289}
   - component: {fileID: 8587745090895151789}
   - component: {fileID: 6536538073347450331}
+  - component: {fileID: 1109151255}
   m_Layer: 5
   m_Name: SendButton
   m_TagString: Untagged
@@ -3505,6 +3593,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1109151255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9089294434192237541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3544d0bdd6cf44b78b9af841cb4a5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _elementAlphaTransperancy: 0.2
 --- !u!1 &9202053616085792234
 GameObject:
   m_ObjectHideFlags: 0
