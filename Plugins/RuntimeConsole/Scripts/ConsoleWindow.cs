@@ -33,7 +33,8 @@ namespace TOMICZ.Debugger
         private bool _isConsoleExpanded = true;
         private bool _isConsoleMinimized = false;
 
-        private string console_expanded_key = "console-expanded-key";
+        private const string CONSOLE_EXPANDED_KEY = "console-expanded-key";
+        private const string CONSOLE_MINIMIZED_KEY = "console-minimized-key";
 
         private void Awake()
         {
@@ -84,8 +85,8 @@ namespace TOMICZ.Debugger
 
                 _headerDescription.transform.gameObject.SetActive(true);
                 _headerOutputText.gameObject.SetActive(false);
-
                 _isConsoleMinimized = false;
+                _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, false);
             }
         }
 
@@ -144,13 +145,15 @@ namespace TOMICZ.Debugger
         {
             _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
             _isRaycastingEnabled = _consoleWindowProperties.GetClickThroughState();
-            _isConsoleExpanded = _consoleWindowProperties.GetBoolean(console_expanded_key);
+            _isConsoleExpanded = _consoleWindowProperties.GetBoolean(CONSOLE_EXPANDED_KEY);
+            _isConsoleMinimized = _consoleWindowProperties.GetBoolean(CONSOLE_MINIMIZED_KEY);
 
             SetUIElementsTransparent();
             EnableClickThrough();
             SetRectSize(_consoleRect, new Vector2(_consoleRect.sizeDelta.x, _consoleWindowProperties.GetWindowHeight()));
 
             CheckConsoleExpandStateOnInitilisation();
+            MinimizeConsole();
         }
 
         private void CheckConsoleExpandStateOnInitilisation()
@@ -209,7 +212,7 @@ namespace TOMICZ.Debugger
             }
             _expandButton.gameObject.SetActive(false);
 
-            _consoleWindowProperties.SetBoolean(console_expanded_key, true);
+            _consoleWindowProperties.SetBoolean(CONSOLE_EXPANDED_KEY, true);
         }
 
         public void HideConsole()
@@ -220,7 +223,7 @@ namespace TOMICZ.Debugger
             }
 
             _expandButton.gameObject.SetActive(true);
-            _consoleWindowProperties.SetBoolean(console_expanded_key, false);
+            _consoleWindowProperties.SetBoolean(CONSOLE_EXPANDED_KEY, false);
         }
 
         public void MinimizeConsole()
@@ -239,6 +242,7 @@ namespace TOMICZ.Debugger
                 _headerDescription.transform.gameObject.SetActive(false);
                 _headerOutputText.gameObject.SetActive(true);
                 _isConsoleMinimized = true;
+                _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, true);
             }
             else
             {
@@ -254,6 +258,7 @@ namespace TOMICZ.Debugger
                 _headerDescription.transform.gameObject.SetActive(true);
                 _headerOutputText.gameObject.SetActive(false);
                 _isConsoleMinimized = false;
+                _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, false);
             }
         }
 
