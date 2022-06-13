@@ -5,6 +5,7 @@ namespace TOMICZ.Debugger
     public class ConsoleWindowProperties
     {
         private string _transperancyEnabled = "transperancyEnabled";
+        private string _clickThroughEnabled = "clickThroughEnabled";
         private string _windowHeight = "windowHeight";
 
         public void CacheTransparencyValue(bool value)
@@ -44,6 +45,33 @@ namespace TOMICZ.Debugger
             }
 
             return 480;
+        }
+
+        public void CacheClickThroughValue(bool value)
+        {
+            if (value)
+            {
+                PlayerPrefs.SetInt(_clickThroughEnabled, 1);
+            }
+            else
+            {
+                PlayerPrefs.SetInt(_clickThroughEnabled, 0);
+            }
+        }
+
+        public bool GetClickThroughState()
+        {
+            if (PlayerPrefs.HasKey(_clickThroughEnabled))
+            {
+                var value = PlayerPrefs.GetInt(_clickThroughEnabled);
+
+                if (value == 1)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
