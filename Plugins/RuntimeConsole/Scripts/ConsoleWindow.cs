@@ -17,33 +17,29 @@ namespace TOMICZ.Debugger
         [Header("Dependencies")]
         [SerializeField] private TMP_Text _consoleText;
         [SerializeField] private TMP_Text _loopText;
+        [SerializeField] private TMP_Text _headerDescription; 
+        [SerializeField] private Button _expandButton;
+        [SerializeField] private RectTransform _header;
+        [SerializeField] private TMP_Text _headerOutputText;
         [SerializeField] private Image[] _raycastImages;
+        [SerializeField] private Transform[] _visibleElements;
 
         private RectTransform _consoleRect;
         private ConsoleWindowProperties _consoleWindowProperties;
         private ScrollRect _scrollRect;
+
         private bool _isConsoleTransparent = false;
         private bool _isRaycastingEnabled = true;
+        private bool _isConsoleExpanded = true;
+        private bool _isConsoleMinimized = false;
+
+        private const string CONSOLE_EXPANDED_KEY = "console-expanded-key";
+        private const string CONSOLE_MINIMIZED_KEY = "console-minimized-key";
 
         private void Awake()
         {
             SetupDependencies();
-        }
-
-        private void SetupDependencies()
-        {
-            RuntimeConsole.SetupConsoleWindow(this);
-
-            _consoleRect = GetComponent<RectTransform>();
-            _consoleWindowProperties = new ConsoleWindowProperties();
-            _scrollRect = GetComponentInChildren<ScrollRect>();
-
-            _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
-            _isRaycastingEnabled = _consoleWindowProperties.GetClickThroughState();
-
-            SetUIElementsTransparent();
-            EnableClickThrough();
-            SetRectSize(_consoleRect, new Vector2(_consoleRect.sizeDelta.x, _consoleWindowProperties.GetWindowHeight()));
+            LoadPersistantData();
         }
 
         public void PrintMessage(MessageType messageType, string message)
@@ -68,6 +64,8 @@ namespace TOMICZ.Debugger
                         UpdateScrollOnNewInput();
                         break;
                 }
+
+                _headerOutputText.text = _consoleText.text;
             }
         }
 
@@ -75,6 +73,21 @@ namespace TOMICZ.Debugger
         {
             SetRectSize(_consoleRect, new Vector2(0, _consoleRect.position.y - Input.mousePosition.y));
 
+            if (_isConsoleMinimized)
+            {
+                foreach (var element in _visibleElements)
+                {
+                    if (element != _header)
+                    {
+                        element.gameObject.SetActive(true);
+                    }
+                }
+
+                _headerDescription.transform.gameObject.SetActive(true);
+                _headerOutputText.gameObject.SetActive(false);
+                _isConsoleMinimized = false;
+                _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, false);
+            }
         }
 
         public void SetUIElementsTransparent()
@@ -119,6 +132,42 @@ namespace TOMICZ.Debugger
             }
         }
 
+        private void SetupDependencies()
+        {
+            RuntimeConsole.SetupConsoleWindow(this);
+
+            _consoleRect = GetComponent<RectTransform>();
+            _consoleWindowProperties = new ConsoleWindowProperties();
+            _scrollRect = GetComponentInChildren<ScrollRect>();
+        }
+
+        private void LoadPersistantData()
+        {
+            _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
+            _isRaycastingEnabled = _consoleWindowProperties.GetClickThroughState();
+            _isConsoleExpanded = _consoleWindowProperties.GetBoolean(CONSOLE_EXPANDED_KEY);
+            _isConsoleMinimized = _consoleWindowProperties.GetBoolean(CONSOLE_MINIMIZED_KEY);
+
+            SetUIElementsTransparent();
+            EnableClickThrough();
+            SetRectSize(_consoleRect, new Vector2(_consoleRect.sizeDelta.x, _consoleWindowProperties.GetWindowHeight()));
+
+            CheckConsoleExpandStateOnInitilisation();
+            MinimizeConsole();
+        }
+
+        private void CheckConsoleExpandStateOnInitilisation()
+        {
+            if (_isConsoleExpanded)
+            {
+                HideConsole();
+            }
+            else
+            {
+                ExpandConsole();
+            }
+        }
+
         private void EnableRaycasting(bool value)
         {
             foreach (var image in _raycastImages)
@@ -154,5 +203,65 @@ namespace TOMICZ.Debugger
 
             return "message-empty";
         }
+
+        public void ExpandConsole()
+        {
+            foreach(var element in _visibleElements)
+            {
+                element.gameObject.SetActive(true);
+            }
+            _expandButton.gameObject.SetActive(false);
+
+            _consoleWindowProperties.SetBoolean(CONSOLE_EXPANDED_KEY, true);
+        }
+
+        public void HideConsole()
+        {
+            foreach (var element in _visibleElements)
+            {
+                element.gameObject.SetActive(false);
+            }
+
+            _expandButton.gameObject.SetActive(true);
+            _consoleWindowProperties.SetBoolean(CONSOLE_EXPANDED_KEY, false);
+        }
+
+        public void MinimizeConsole()
+        {
+            if (!_isConsoleMinimized)
+            {
+                foreach (var element in _visibleElements)
+                {
+                    if (element != _header)
+                    {
+                        element.gameObject.SetActive(false);
+                    }
+                }
+
+                SetConsoleWindowHeight(_header.sizeDelta.y);
+                _headerDescription.transform.gameObject.SetActive(false);
+                _headerOutputText.gameObject.SetActive(true);
+                _isConsoleMinimized = true;
+                _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, true);
+            }
+            else
+            {
+                foreach (var element in _visibleElements)
+                {
+                    if (element != _header)
+                    {
+                        element.gameObject.SetActive(true);
+                    }
+                }
+
+                SetConsoleWindowHeight(_consoleWindowProperties.GetWindowHeight());
+                _headerDescription.transform.gameObject.SetActive(true);
+                _headerOutputText.gameObject.SetActive(false);
+                _isConsoleMinimized = false;
+                _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, false);
+            }
+        }
+
+        private void SetConsoleWindowHeight(float height) => _consoleRect.sizeDelta = new Vector2(_consoleRect.sizeDelta.x, height);
     }
 }
