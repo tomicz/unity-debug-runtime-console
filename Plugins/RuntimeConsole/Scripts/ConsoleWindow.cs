@@ -179,7 +179,13 @@ namespace TOMICZ.Debugger
             _consoleText.raycastTarget = value;
         }
 
-        private void UpdateScrollOnNewInput() => _scrollRect.verticalNormalizedPosition = 0;
+        private void UpdateScrollOnNewInput()
+        {
+            if (!_isConsoleMinimized)
+            {
+                _scrollRect.verticalNormalizedPosition = 0;
+            }
+        }
 
         private void SetRectSize(RectTransform rect, Vector2 newSize)
         {
