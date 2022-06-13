@@ -17,8 +17,10 @@ namespace TOMICZ.Debugger
         [Header("Dependencies")]
         [SerializeField] private TMP_Text _consoleText;
         [SerializeField] private TMP_Text _loopText;
+        [SerializeField] private TMP_Text _headerDescription; 
         [SerializeField] private Button _expandButton;
         [SerializeField] private RectTransform _header;
+        [SerializeField] private TMP_Text _headerOutputText;
         [SerializeField] private Image[] _raycastImages;
         [SerializeField] private Transform[] _visibleElements;
 
@@ -61,6 +63,8 @@ namespace TOMICZ.Debugger
                         UpdateScrollOnNewInput();
                         break;
                 }
+
+                _headerOutputText.text = _consoleText.text;
             }
         }
 
@@ -77,6 +81,9 @@ namespace TOMICZ.Debugger
                         element.gameObject.SetActive(true);
                     }
                 }
+
+                _headerDescription.transform.gameObject.SetActive(true);
+                _headerOutputText.gameObject.SetActive(false);
 
                 _isConsoleMinimized = false;
             }
@@ -229,6 +236,8 @@ namespace TOMICZ.Debugger
                 }
 
                 SetConsoleWindowHeight(_header.sizeDelta.y);
+                _headerDescription.transform.gameObject.SetActive(false);
+                _headerOutputText.gameObject.SetActive(true);
                 _isConsoleMinimized = true;
             }
             else
@@ -242,6 +251,8 @@ namespace TOMICZ.Debugger
                 }
 
                 SetConsoleWindowHeight(_consoleWindowProperties.GetWindowHeight());
+                _headerDescription.transform.gameObject.SetActive(true);
+                _headerOutputText.gameObject.SetActive(false);
                 _isConsoleMinimized = false;
             }
         }
