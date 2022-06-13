@@ -24,28 +24,17 @@ namespace TOMICZ.Debugger
         private RectTransform _consoleRect;
         private ConsoleWindowProperties _consoleWindowProperties;
         private ScrollRect _scrollRect;
+
         private bool _isConsoleTransparent = false;
         private bool _isRaycastingEnabled = true;
+        private bool _isConsoleExpanded = true;
+
+        private string console_expanded_key = "console-expanded-key";
 
         private void Awake()
         {
             SetupDependencies();
-        }
-
-        private void SetupDependencies()
-        {
-            RuntimeConsole.SetupConsoleWindow(this);
-
-            _consoleRect = GetComponent<RectTransform>();
-            _consoleWindowProperties = new ConsoleWindowProperties();
-            _scrollRect = GetComponentInChildren<ScrollRect>();
-
-            _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
-            _isRaycastingEnabled = _consoleWindowProperties.GetClickThroughState();
-
-            SetUIElementsTransparent();
-            EnableClickThrough();
-            SetRectSize(_consoleRect, new Vector2(_consoleRect.sizeDelta.x, _consoleWindowProperties.GetWindowHeight()));
+            LoadPersistantData();
         }
 
         public void PrintMessage(MessageType messageType, string message)
@@ -121,6 +110,40 @@ namespace TOMICZ.Debugger
             }
         }
 
+        private void SetupDependencies()
+        {
+            RuntimeConsole.SetupConsoleWindow(this);
+
+            _consoleRect = GetComponent<RectTransform>();
+            _consoleWindowProperties = new ConsoleWindowProperties();
+            _scrollRect = GetComponentInChildren<ScrollRect>();
+        }
+
+        private void LoadPersistantData()
+        {
+            _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
+            _isRaycastingEnabled = _consoleWindowProperties.GetClickThroughState();
+            _isConsoleExpanded = _consoleWindowProperties.GetBoolean(console_expanded_key);
+
+            SetUIElementsTransparent();
+            EnableClickThrough();
+            SetRectSize(_consoleRect, new Vector2(_consoleRect.sizeDelta.x, _consoleWindowProperties.GetWindowHeight()));
+
+            CheckConsoleExpandStateOnInitilisation();
+        }
+
+        private void CheckConsoleExpandStateOnInitilisation()
+        {
+            if (_isConsoleExpanded)
+            {
+                HideConsole();
+            }
+            else
+            {
+                ExpandConsole();
+            }
+        }
+
         private void EnableRaycasting(bool value)
         {
             foreach (var image in _raycastImages)
@@ -164,6 +187,8 @@ namespace TOMICZ.Debugger
                 element.gameObject.SetActive(true);
             }
             _expandButton.gameObject.SetActive(false);
+
+            _consoleWindowProperties.SetBoolean(console_expanded_key, true);
         }
 
         public void HideConsole()
@@ -173,6 +198,8 @@ namespace TOMICZ.Debugger
                 element.gameObject.SetActive(false);
             }
             _expandButton.gameObject.SetActive(true);
+
+            _consoleWindowProperties.SetBoolean(console_expanded_key, false);
         }
     }
 }

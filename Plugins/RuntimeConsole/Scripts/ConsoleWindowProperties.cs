@@ -95,5 +95,34 @@ namespace TOMICZ.Debugger
 
             return -1;
         }
+
+        public void SetBoolean(string key, bool value)
+        {
+            if (value)
+            {
+                PlayerPrefs.SetInt(key, 0);
+            }
+            else
+            {
+                PlayerPrefs.SetInt(key, 1);
+            }
+        }
+
+        public bool GetBoolean(string key)
+        {
+            if (PlayerPrefs.HasKey(key))
+            {
+                if(PlayerPrefs.GetInt(key) == 0)
+                {
+                    return false;
+                }
+                else if(PlayerPrefs.GetInt(key) == 1)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
