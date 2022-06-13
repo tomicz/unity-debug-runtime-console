@@ -18,6 +18,7 @@ namespace TOMICZ.Debugger
         [SerializeField] private TMP_Text _consoleText;
         [SerializeField] private TMP_Text _loopText;
         [SerializeField] private Button _expandButton;
+        [SerializeField] private RectTransform _header;
         [SerializeField] private Image[] _raycastImages;
         [SerializeField] private Transform[] _visibleElements;
 
@@ -28,6 +29,7 @@ namespace TOMICZ.Debugger
         private bool _isConsoleTransparent = false;
         private bool _isRaycastingEnabled = true;
         private bool _isConsoleExpanded = true;
+        private bool _isConsoleMinimized = false;
 
         private string console_expanded_key = "console-expanded-key";
 
@@ -66,6 +68,18 @@ namespace TOMICZ.Debugger
         {
             SetRectSize(_consoleRect, new Vector2(0, _consoleRect.position.y - Input.mousePosition.y));
 
+            if (_isConsoleMinimized)
+            {
+                foreach (var element in _visibleElements)
+                {
+                    if (element != _header)
+                    {
+                        element.gameObject.SetActive(true);
+                    }
+                }
+
+                _isConsoleMinimized = false;
+            }
         }
 
         public void SetUIElementsTransparent()
@@ -197,9 +211,41 @@ namespace TOMICZ.Debugger
             {
                 element.gameObject.SetActive(false);
             }
-            _expandButton.gameObject.SetActive(true);
 
+            _expandButton.gameObject.SetActive(true);
             _consoleWindowProperties.SetBoolean(console_expanded_key, false);
         }
+
+        public void MinimizeConsole()
+        {
+            if (!_isConsoleMinimized)
+            {
+                foreach (var element in _visibleElements)
+                {
+                    if (element != _header)
+                    {
+                        element.gameObject.SetActive(false);
+                    }
+                }
+
+                SetConsoleWindowHeight(_header.sizeDelta.y);
+                _isConsoleMinimized = true;
+            }
+            else
+            {
+                foreach (var element in _visibleElements)
+                {
+                    if (element != _header)
+                    {
+                        element.gameObject.SetActive(true);
+                    }
+                }
+
+                SetConsoleWindowHeight(_consoleWindowProperties.GetWindowHeight());
+                _isConsoleMinimized = false;
+            }
+        }
+
+        private void SetConsoleWindowHeight(float height) => _consoleRect.sizeDelta = new Vector2(_consoleRect.sizeDelta.x, height);
     }
 }
