@@ -39,8 +39,10 @@ namespace TOMICZ.Debugger
             _scrollRect = GetComponentInChildren<ScrollRect>();
 
             _isConsoleTransparent = _consoleWindowProperties.GetTransperancyState();
+            _isRaycastingEnabled = _consoleWindowProperties.GetClickThroughState();
 
             SetUIElementsTransparent();
+            EnableClickThrough();
             SetRectSize(_consoleRect, new Vector2(_consoleRect.sizeDelta.x, _consoleWindowProperties.GetWindowHeight()));
         }
 
@@ -123,6 +125,8 @@ namespace TOMICZ.Debugger
             {
                 image.raycastTarget = value;
             }
+
+            _consoleWindowProperties.CacheClickThroughValue(value);
             _consoleText.raycastTarget = value;
         }
 
