@@ -75,6 +75,13 @@ namespace TOMICZ.Debugger
         {
             SetRectSize(_consoleRect, new Vector2(0, _consoleRect.position.y - Input.mousePosition.y));
 
+            if (_isConsoleMaximized)
+            {
+                _consoleRect.anchorMin = new Vector2(0, 1);
+                _isConsoleMaximized = false;
+                _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, false);
+            }
+
             if (_isConsoleMinimized)
             {
                 foreach (var element in _visibleElements)
