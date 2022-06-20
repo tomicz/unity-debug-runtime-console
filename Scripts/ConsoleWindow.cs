@@ -36,6 +36,7 @@ namespace TOMICZ.Debugger
 
         private const string CONSOLE_EXPANDED_KEY = "console-expanded-key";
         private const string CONSOLE_MINIMIZED_KEY = "console-minimized-key";
+        private const string CONSOLE_MAXIMIZED_KEY = "console-maximized-key";
 
         private void Awake()
         {
@@ -73,6 +74,13 @@ namespace TOMICZ.Debugger
         public void DragToExpandConsole()
         {
             SetRectSize(_consoleRect, new Vector2(0, _consoleRect.position.y - Input.mousePosition.y));
+
+            if (_isConsoleMaximized)
+            {
+                _consoleRect.anchorMin = new Vector2(0, 1);
+                _isConsoleMaximized = false;
+                _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, false);
+            }
 
             if (_isConsoleMinimized)
             {
@@ -148,6 +156,7 @@ namespace TOMICZ.Debugger
             _isRaycastingEnabled = _consoleWindowProperties.GetClickThroughState();
             _isConsoleExpanded = _consoleWindowProperties.GetBoolean(CONSOLE_EXPANDED_KEY);
             _isConsoleMinimized = _consoleWindowProperties.GetBoolean(CONSOLE_MINIMIZED_KEY);
+            _isConsoleMaximized = _consoleWindowProperties.GetBoolean(CONSOLE_MAXIMIZED_KEY);
 
             SetUIElementsTransparent();
             EnableClickThrough();
@@ -155,6 +164,7 @@ namespace TOMICZ.Debugger
 
             CheckConsoleExpandStateOnInitilisation();
             MinimizeConsole();
+            MaximizeConsole();
         }
 
         private void CheckConsoleExpandStateOnInitilisation()
@@ -278,12 +288,14 @@ namespace TOMICZ.Debugger
                 _consoleRect.anchorMin = new Vector2(0, 0);
                 SetConsoleWindowHeight(0);
                 _isConsoleMaximized = true;
+                _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, true);
             }
             else
             {
                 _consoleRect.anchorMin = new Vector2(0, 1);
                 SetConsoleWindowHeight(_consoleWindowProperties.GetWindowHeight());
                 _isConsoleMaximized = false;
+                _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, false);
             }
         }
     }
