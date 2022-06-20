@@ -171,6 +171,13 @@ namespace TOMICZ.Debugger
             MaximizeConsole();
         }
 
+
+        private void PrintConsoleMessage(string message)
+        {
+            _consoleText.text += " ~ <color=orange>[Console]</color> " + message + "\n";
+            UpdateScrollOnNewInput();
+        }
+
         private void CheckConsoleExpandStateOnInitilisation()
         {
             if (_isConsoleExpanded)
@@ -251,6 +258,13 @@ namespace TOMICZ.Debugger
         {
             if (!_isConsoleMinimized)
             {
+                if (_isConsoleMaximized)
+                {
+                    _consoleRect.anchorMin = new Vector2(0, 1);
+                    _isConsoleMaximized = false;
+                    _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, false);
+                }
+
                 foreach (var element in _visibleElements)
                 {
                     if (element != _header)
@@ -289,6 +303,23 @@ namespace TOMICZ.Debugger
         {
             if (!_isConsoleMaximized)
             {
+                if (_isConsoleMinimized)
+                {
+                    foreach (var element in _visibleElements)
+                    {
+                        if (element != _header)
+                        {
+                            element.gameObject.SetActive(true);
+                        }
+                    }
+
+                    SetConsoleWindowHeight(_consoleWindowProperties.GetWindowHeight());
+                    _headerDescription.transform.gameObject.SetActive(true);
+                    _headerOutputText.gameObject.SetActive(false);
+                    _isConsoleMinimized = false;
+                    _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, false);
+                }
+
                 _consoleRect.anchorMin = new Vector2(0, 0);
                 SetConsoleWindowHeight(0);
                 _isConsoleMaximized = true;
@@ -301,12 +332,6 @@ namespace TOMICZ.Debugger
                 _isConsoleMaximized = false;
                 _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, false);
             }
-        }
-
-        private void PrintConsoleMessage(string message)
-        {
-            _consoleText.text += " ~ <color=orange>[Console]</color> " + message + "\n";
-            UpdateScrollOnNewInput();
         }
     }
 }
