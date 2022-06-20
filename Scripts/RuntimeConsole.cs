@@ -1,21 +1,22 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace TOMICZ
+namespace TOMICZ.Debugger
 {
-    public enum MessageType
-    {
-        Error,
-        Log,
-        Null
-    }
-
     public static class RuntimeConsole
     {
         private static ConsoleWindow _consoleWindow;
 
+        public static List<WindowElement> WindowElementList = new List<WindowElement>();
+
         public static void SetupConsoleWindow(ConsoleWindow consoleWindow)
         {
             _consoleWindow = consoleWindow;
+        }
+
+        public static void AddWindowElement(WindowElement windowElement)
+        {
+            WindowElementList.Add(windowElement);
         }
 
         /// <summary>
@@ -28,17 +29,6 @@ namespace TOMICZ
             if (HasConsole())
             {
                 WriteMessage(messageType, message);
-            }
-        }
-
-        /// <summary>
-        /// Prints underline in Console Window. Useful for seperating messages into blocks.
-        /// </summary>
-        public static void PrintUnderline()
-        {
-            if (HasConsole())
-            {
-                PrintMessage(MessageType.Null, "----------------------------- *");
             }
         }
 

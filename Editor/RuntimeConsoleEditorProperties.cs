@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace TOMICZ
+namespace TOMICZ.Debugger
 {
     public class RuntimeConsoleEditorProperties
     {
