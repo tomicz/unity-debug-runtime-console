@@ -9,7 +9,7 @@ namespace TOMICZ.Debugger
         Error,
         Log,
         Loop,
-        Header
+        Header,
     }
 
     public class ConsoleWindow : MonoBehaviour
@@ -41,6 +41,10 @@ namespace TOMICZ.Debugger
         private void Awake()
         {
             SetupDependencies();
+
+            PrintConsoleMessage("Copyright @ TOMICZ & Darko Tomic.");
+            PrintConsoleMessage("Console initilised.");
+
             LoadPersistantData();
         }
 
@@ -110,7 +114,7 @@ namespace TOMICZ.Debugger
 
                 _isConsoleTransparent = true;
                 _consoleWindowProperties.CacheTransparencyValue(true);
-                PrintMessage(MessageType.Header, "Transperancy mode enabled.");
+                PrintConsoleMessage("Transperancy mode enabled.");
             }
             else
             {
@@ -121,7 +125,7 @@ namespace TOMICZ.Debugger
 
                 _isConsoleTransparent = false;
                 _consoleWindowProperties.CacheTransparencyValue(false);
-                PrintMessage(MessageType.Header, "Transperancy mode disabled.");
+                PrintConsoleMessage("Transperancy mode disabled.");
             }
         }
 
@@ -129,13 +133,13 @@ namespace TOMICZ.Debugger
         {
             if (_isRaycastingEnabled)
             {
-                PrintMessage(MessageType.Header, "Click through UI mode enabled.");
+                PrintConsoleMessage("Click through UI mode enabled.");
                 EnableRaycasting(false);
                 _isRaycastingEnabled = false;
             }
             else
             {
-                PrintMessage(MessageType.Header, "Click through UI mode disabled.");
+                PrintConsoleMessage("Click through UI mode disabled.");
                 EnableRaycasting(true);
                 _isRaycastingEnabled = true;
             }
@@ -209,13 +213,13 @@ namespace TOMICZ.Debugger
             switch (messageType)
             {
                 case MessageType.Error:
-                    return " * <color=red>[Error]</color> ";
+                    return " ~ <color=red>[Error]</color> ";
                 case MessageType.Log:
-                    return " * <color=white>[Log]</color> ";
+                    return " ~ <color=white>[Log]</color> ";
                 case MessageType.Loop:
-                    return " * <color=yellow>[Loop0]</color> ";
+                    return " ~ <color=yellow>[Loop0]</color> ";
                 case MessageType.Header:
-                    return " * <color=yellow>[Header]</color> ";
+                    return " ~ <color=yellow>[Header]</color> ";
             }
 
             return "message-empty";
@@ -297,6 +301,12 @@ namespace TOMICZ.Debugger
                 _isConsoleMaximized = false;
                 _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, false);
             }
+        }
+
+        private void PrintConsoleMessage(string message)
+        {
+            _consoleText.text += " ~ <color=orange>[Console]</color> " + message + "\n";
+            UpdateScrollOnNewInput();
         }
     }
 }
