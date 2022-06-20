@@ -32,6 +32,7 @@ namespace TOMICZ.Debugger
         private bool _isRaycastingEnabled = true;
         private bool _isConsoleExpanded = true;
         private bool _isConsoleMinimized = false;
+        private bool _isConsoleMaximized = false;
 
         private const string CONSOLE_EXPANDED_KEY = "console-expanded-key";
         private const string CONSOLE_MINIMIZED_KEY = "console-minimized-key";
@@ -269,5 +270,21 @@ namespace TOMICZ.Debugger
         }
 
         private void SetConsoleWindowHeight(float height) => _consoleRect.sizeDelta = new Vector2(_consoleRect.sizeDelta.x, height);
+
+        public void MaximizeConsole()
+        {
+            if (!_isConsoleMaximized)
+            {
+                _consoleRect.anchorMin = new Vector2(0, 0);
+                SetConsoleWindowHeight(0);
+                _isConsoleMaximized = true;
+            }
+            else
+            {
+                _consoleRect.anchorMin = new Vector2(0, 1);
+                SetConsoleWindowHeight(_consoleWindowProperties.GetWindowHeight());
+                _isConsoleMaximized = false;
+            }
+        }
     }
 }
