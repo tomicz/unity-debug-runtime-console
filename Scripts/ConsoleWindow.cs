@@ -24,6 +24,7 @@ namespace TOMICZ.Debugger
         [SerializeField] private TMP_Text _consoleText;
         [SerializeField] private TMP_Text _loopText;
         [SerializeField] private TMP_Text _headerDescription; 
+        [SerializeField] private TMP_Text _fpsCounterText;
         [SerializeField] private Button _expandButton;
         [SerializeField] private RectTransform _header;
         [SerializeField] private TMP_Text _headerOutputText;
@@ -44,6 +45,10 @@ namespace TOMICZ.Debugger
         private const string CONSOLE_MINIMIZED_KEY = "console-minimized-key";
         private const string CONSOLE_MAXIMIZED_KEY = "console-maximized-key";
 
+        private float pollingTime = 1f;
+        private float time = 0;
+        private int frameCount = 0;
+
         private void Awake()
         {
             SetupDependencies();
@@ -52,6 +57,11 @@ namespace TOMICZ.Debugger
             PrintConsoleMessage("Console initilised.");
 
             LoadPersistantData();
+        }
+
+        private void Update()
+        {
+            ShowFPS();
         }
 
         public void PrintMessage(MessageType messageType, string message)
@@ -138,6 +148,27 @@ namespace TOMICZ.Debugger
                 PrintConsoleMessage("Click through UI mode disabled.");
                 EnableRaycasting(true);
                 _isRaycastingEnabled = true;
+            }
+        }
+
+        private void ShowFPS()
+        {
+            if(_fpsCounterText == null)
+            {
+                PrintConsoleMessage("Missing TMP_Text component '_fpsCounterText'. Please assign it in the inspector in order to display the FPS.");
+                return;
+            }
+
+            time += Time.deltaTime;
+
+            frameCount++;
+
+            if(time > pollingTime)
+            {
+                int frameRate = Mathf.RoundToInt(frameCount / time);
+                _fpsCounterText.text = frameRate.ToString() + " FPS";
+                time -= pollingTime;
+                frameCount = 0;
             }
         }
 
