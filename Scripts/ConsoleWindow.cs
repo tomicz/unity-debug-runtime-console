@@ -9,7 +9,13 @@ namespace TOMICZ.Debugger
         Error,
         Log,
         Loop,
-        Header,
+        Header
+    }
+
+    public enum AnchorPosition
+    {
+        Top,
+        Max
     }
 
     public class ConsoleWindow : MonoBehaviour
@@ -71,7 +77,10 @@ namespace TOMICZ.Debugger
                         break;
                 }
 
-                _headerOutputText.text = _consoleText.text;
+                if (_header.gameObject.activeInHierarchy)
+                {
+                    _headerOutputText.text = _consoleText.text;
+                }
             }
         }
 
@@ -81,25 +90,12 @@ namespace TOMICZ.Debugger
 
             if (_isConsoleMaximized)
             {
-                _consoleRect.anchorMin = new Vector2(0, 1);
-                _isConsoleMaximized = false;
-                _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, false);
+                SetWindowMaximized(false, AnchorPosition.Top, _consoleWindowProperties.GetWindowHeight());
             }
 
             if (_isConsoleMinimized)
             {
-                foreach (var element in _visibleElements)
-                {
-                    if (element != _header)
-                    {
-                        element.gameObject.SetActive(true);
-                    }
-                }
-
-                _headerDescription.transform.gameObject.SetActive(true);
-                _headerOutputText.gameObject.SetActive(false);
-                _isConsoleMinimized = false;
-                _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, false);
+                SetWindowMinimized(false, _consoleWindowProperties.GetWindowHeight());
             }
         }
 
@@ -260,41 +256,33 @@ namespace TOMICZ.Debugger
             {
                 if (_isConsoleMaximized)
                 {
-                    _consoleRect.anchorMin = new Vector2(0, 1);
-                    _isConsoleMaximized = false;
-                    _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, false);
+                    SetWindowMaximized(false, AnchorPosition.Top, _consoleWindowProperties.GetWindowHeight());
                 }
 
-                foreach (var element in _visibleElements)
-                {
-                    if (element != _header)
-                    {
-                        element.gameObject.SetActive(false);
-                    }
-                }
-
-                SetConsoleWindowHeight(_header.sizeDelta.y);
-                _headerDescription.transform.gameObject.SetActive(false);
-                _headerOutputText.gameObject.SetActive(true);
-                _isConsoleMinimized = true;
-                _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, true);
+                SetWindowMinimized(true, _header.sizeDelta.y);
             }
             else
             {
-                foreach (var element in _visibleElements)
-                {
-                    if (element != _header)
-                    {
-                        element.gameObject.SetActive(true);
-                    }
-                }
-
-                SetConsoleWindowHeight(_consoleWindowProperties.GetWindowHeight());
-                _headerDescription.transform.gameObject.SetActive(true);
-                _headerOutputText.gameObject.SetActive(false);
-                _isConsoleMinimized = false;
-                _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, false);
+                SetWindowMinimized(false, _consoleWindowProperties.GetWindowHeight());
             }
+        }
+
+        private void SetWindowMinimized(bool enabled, float windowHeight)
+        {
+            foreach (var element in _visibleElements)
+            {
+                if (element != _header)
+                {
+                    element.gameObject.SetActive(!enabled);
+                }
+            }
+
+            SetConsoleWindowHeight(windowHeight);
+            _headerDescription.transform.gameObject.SetActive(!enabled);
+            _headerOutputText.gameObject.SetActive(enabled);
+            _isConsoleMinimized = enabled;
+            _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, enabled);
+            PrintConsoleMessage("Window is minimized: " + enabled);
         }
 
         private void SetConsoleWindowHeight(float height) => _consoleRect.sizeDelta = new Vector2(_consoleRect.sizeDelta.x, height);
@@ -305,33 +293,38 @@ namespace TOMICZ.Debugger
             {
                 if (_isConsoleMinimized)
                 {
-                    foreach (var element in _visibleElements)
-                    {
-                        if (element != _header)
-                        {
-                            element.gameObject.SetActive(true);
-                        }
-                    }
-
-                    SetConsoleWindowHeight(_consoleWindowProperties.GetWindowHeight());
-                    _headerDescription.transform.gameObject.SetActive(true);
-                    _headerOutputText.gameObject.SetActive(false);
-                    _isConsoleMinimized = false;
-                    _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, false);
+                    SetWindowMinimized(false, _consoleWindowProperties.GetWindowHeight());
                 }
 
-                _consoleRect.anchorMin = new Vector2(0, 0);
-                SetConsoleWindowHeight(0);
-                _isConsoleMaximized = true;
-                _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, true);
+                SetWindowMaximized(true, AnchorPosition.Max, 0);
             }
             else
             {
-                _consoleRect.anchorMin = new Vector2(0, 1);
-                SetConsoleWindowHeight(_consoleWindowProperties.GetWindowHeight());
-                _isConsoleMaximized = false;
-                _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, false);
+                SetWindowMaximized(false, AnchorPosition.Top, _consoleWindowProperties.GetWindowHeight());
             }
+        }
+
+        private void SetWindowMaximized(bool enabled, AnchorPosition anchorPosition, float windowHeight)
+        {
+            SetAnchorPosition(anchorPosition);
+            SetConsoleWindowHeight(windowHeight);
+            _isConsoleMaximized = enabled;
+            _consoleWindowProperties.SetBoolean(CONSOLE_MAXIMIZED_KEY, enabled);
+            PrintConsoleMessage("Window is maximized: " + enabled);
+        }
+
+        private void SetAnchorPosition(AnchorPosition position)
+        {
+            switch (position)
+            {
+                case AnchorPosition.Top:
+                    _consoleRect.anchorMin = new Vector2(0, 1);
+                    break;
+                case AnchorPosition.Max:
+                    _consoleRect.anchorMin = new Vector2(0, 0);
+                    break;
+            }
+
         }
     }
 }
