@@ -82,7 +82,7 @@ namespace TOMICZ.Debugger
                         _loopText.text = GetMessageType(MessageType.Loop) + message;
                         break;
                     case MessageType.Header:
-                        _consoleText.text += GetMessageType(MessageType.Header) + message + "\n";
+                        _consoleText.text += GetMessageType(MessageType.Header) + message + "</color>" + "\n";
                         UpdateScrollOnNewInput();
                         break;
                 }
@@ -253,7 +253,7 @@ namespace TOMICZ.Debugger
                 case MessageType.Loop:
                     return " ~ <color=yellow>[Loop0]</color> ";
                 case MessageType.Header:
-                    return " ~ <color=yellow>[Header]</color> ";
+                    return " ~ <color=yellow>";
             }
 
             return "message-empty";
