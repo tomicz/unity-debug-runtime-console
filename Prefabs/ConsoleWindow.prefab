@@ -2769,7 +2769,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7896174972660045901}
   m_HandleRect: {fileID: 7896174972660045902}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3903,7 +3903,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Copyright @ TOMICZ & Darko Tomic.
+
+    Console initilised.
+
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bb1da8dc0eff04217bfc2e06ffab7111, type: 2}
   m_sharedMaterial: {fileID: -4487711808730959478, guid: bb1da8dc0eff04217bfc2e06ffab7111, type: 2}
@@ -4008,8 +4013,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 4, y: -0.00020549317}
+  m_SizeDelta: {x: -4, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7896174973242335120
 MonoBehaviour:
@@ -4040,8 +4045,8 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
-    m_Bottom: 5
+    m_Top: 5
+    m_Bottom: 20
   m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 1

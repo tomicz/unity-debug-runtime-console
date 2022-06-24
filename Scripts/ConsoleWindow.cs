@@ -53,8 +53,8 @@ namespace TOMICZ.Debugger
         {
             SetupDependencies();
 
-            PrintConsoleMessage("Copyright @ TOMICZ & Darko Tomic.");
-            PrintConsoleMessage("Console initilised.");
+            //PrintConsoleMessage("Copyright @ TOMICZ & Darko Tomic.");
+            //PrintConsoleMessage("Console initilised.");
 
             LoadPersistantData();
         }
