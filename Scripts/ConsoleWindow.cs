@@ -52,10 +52,6 @@ namespace TOMICZ.Debugger
         private void Awake()
         {
             SetupDependencies();
-
-            //PrintConsoleMessage("Copyright @ TOMICZ & Darko Tomic.");
-            //PrintConsoleMessage("Console initilised.");
-
             LoadPersistantData();
         }
 
