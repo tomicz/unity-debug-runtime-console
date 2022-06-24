@@ -85,9 +85,9 @@ namespace TOMICZ.Debugger
                         break;
                 }
 
-                if (_header.gameObject.activeInHierarchy)
+                if (messageType != MessageType.Loop && _header.gameObject.activeInHierarchy)
                 {
-                    _headerOutputText.text = _consoleText.text;
+                    _headerOutputText.text = "<color=orange>[Main]</color> " + message;
                 }
             }
         }
