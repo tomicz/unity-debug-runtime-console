@@ -80,7 +80,6 @@ namespace TOMICZ.Debugger
 
         public void Log(string message)
         {
-            Debug.Log("This is a unity log.");
             _consoleText.text += GetMessageType(MessageType.Log) + message + "\n";
             UpdateScrollOnNewInput();
             UpdateHeaderOutput(message);
