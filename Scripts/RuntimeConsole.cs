@@ -9,9 +9,12 @@ namespace TOMICZ.Debugger
 
         public static List<WindowElement> WindowElementList = new List<WindowElement>();
 
+        private static RuntimeCommands _runtimeCommands;
+
         public static void SetupConsoleWindow(ConsoleWindow consoleWindow)
         {
             _consoleWindow = consoleWindow;
+            _runtimeCommands = new RuntimeCommands();
         }
 
         public static void AddWindowElement(WindowElement windowElement)
@@ -30,6 +33,16 @@ namespace TOMICZ.Debugger
             {
                 WriteMessage(messageType, message);
             }
+        }
+
+        public static void PrintList(List<object> list)
+        {
+            _runtimeCommands.PrintList(list);
+        }
+
+        public static void PrintList(List<object> list, bool isSerialized)
+        {
+            _runtimeCommands.PrintList(list, isSerialized);
         }
 
         /// <summary>
