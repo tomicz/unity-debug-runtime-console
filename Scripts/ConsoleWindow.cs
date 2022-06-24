@@ -9,7 +9,8 @@ namespace TOMICZ.Debugger
         Error,
         Log,
         Loop,
-        Header
+        Header,
+        Unity
     }
 
     public enum AnchorPosition
@@ -55,6 +56,21 @@ namespace TOMICZ.Debugger
         {
             SetupDependencies();
             LoadPersistantData();
+        }
+
+        private void OnEnable()
+        {
+            Application.logMessageReceived += OnUnityLogMessageReceived;
+        }
+
+        private void OnDisable()
+        {
+            Application.logMessageReceived -= OnUnityLogMessageReceived;
+        }
+
+        private void OnUnityLogMessageReceived(string logString, string stackTrace, LogType type)
+        {
+            PrintMessage(MessageType.Unity, logString);
         }
 
         private void Update()
@@ -107,6 +123,10 @@ namespace TOMICZ.Debugger
                         break;
                     case MessageType.Header:
                         _consoleText.text += GetMessageType(MessageType.Header) + message.ToUpper() + "</color>" + "\n";
+                        UpdateScrollOnNewInput();
+                        break;
+                    case MessageType.Unity:
+                        _consoleText.text += GetMessageType(MessageType.Unity) + message + "\n";
                         UpdateScrollOnNewInput();
                         break;
                 }
@@ -284,6 +304,8 @@ namespace TOMICZ.Debugger
                     return "<color=yellow>[Loop0]</color> ";
                 case MessageType.Header:
                     return "~ <color=yellow>";
+                case MessageType.Unity:
+                    return "~ <color=#70afe9>[Unity]</color> ";
             }
 
             return "message-empty";
