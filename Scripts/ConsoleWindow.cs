@@ -251,7 +251,7 @@ namespace TOMICZ.Debugger
                 case MessageType.Log:
                     return " ~ <color=white>[Log]</color> ";
                 case MessageType.Loop:
-                    return " ~ <color=yellow>[Loop0]</color> ";
+                    return "<color=yellow>[Loop0]</color> ";
                 case MessageType.Header:
                     return " ~ <color=yellow>";
             }
