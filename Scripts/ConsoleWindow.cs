@@ -40,10 +40,12 @@ namespace TOMICZ.Debugger
         private bool _isConsoleExpanded = true;
         private bool _isConsoleMinimized = false;
         private bool _isConsoleMaximized = false;
+        private bool _isAutoScrollingEnabled = true;
 
         private const string CONSOLE_EXPANDED_KEY = "console-expanded-key";
         private const string CONSOLE_MINIMIZED_KEY = "console-minimized-key";
         private const string CONSOLE_MAXIMIZED_KEY = "console-maximized-key";
+        private const string CONSOLE_AUTOSCROLL_KEY = "console-autoscroll-key";
 
         private float pollingTime = 1f;
         private float time = 0;
@@ -184,10 +186,12 @@ namespace TOMICZ.Debugger
             _isConsoleExpanded = _consoleWindowProperties.GetBoolean(CONSOLE_EXPANDED_KEY);
             _isConsoleMinimized = _consoleWindowProperties.GetBoolean(CONSOLE_MINIMIZED_KEY);
             _isConsoleMaximized = _consoleWindowProperties.GetBoolean(CONSOLE_MAXIMIZED_KEY);
+            _isAutoScrollingEnabled = _consoleWindowProperties.GetBoolean(CONSOLE_AUTOSCROLL_KEY);
 
             SetUIElementsTransparent();
             EnableClickThrough();
             SetRectSize(_consoleRect, new Vector2(_consoleRect.sizeDelta.x, _consoleWindowProperties.GetWindowHeight()));
+            EnableAutoScrolling();
 
             CheckConsoleExpandStateOnInitilisation();
             MinimizeConsole();
@@ -228,7 +232,10 @@ namespace TOMICZ.Debugger
         {
             if (!_isConsoleMinimized)
             {
-                _scrollRect.verticalNormalizedPosition = 0;
+                if (_isAutoScrollingEnabled)
+                {
+                    _scrollRect.verticalNormalizedPosition = 0;
+                }
             }
         }
 
@@ -294,6 +301,39 @@ namespace TOMICZ.Debugger
             }
         }
 
+        public void MaximizeConsole()
+        {
+            if (!_isConsoleMaximized)
+            {
+                if (_isConsoleMinimized)
+                {
+                    SetWindowMinimized(false, _consoleWindowProperties.GetWindowHeight());
+                }
+
+                SetWindowMaximized(true, AnchorPosition.Max, 0);
+            }
+            else
+            {
+                SetWindowMaximized(false, AnchorPosition.Top, _consoleWindowProperties.GetWindowHeight());
+            }
+        }
+
+        public void EnableAutoScrolling()
+        {
+            if (_isAutoScrollingEnabled)
+            {
+                _isAutoScrollingEnabled = false;
+                _consoleWindowProperties.SetBoolean(CONSOLE_AUTOSCROLL_KEY, false);
+                PrintConsoleMessage("Auto scrolling enabled: " + _isAutoScrollingEnabled);
+            }
+            else
+            {
+                _isAutoScrollingEnabled = true;
+                _consoleWindowProperties.SetBoolean(CONSOLE_AUTOSCROLL_KEY, true);
+                PrintConsoleMessage("Auto scrolling enabled: " + _isAutoScrollingEnabled);
+            }
+        }
+
         private void SetWindowMinimized(bool enabled, float windowHeight)
         {
             foreach (var element in _visibleElements)
@@ -313,23 +353,6 @@ namespace TOMICZ.Debugger
         }
 
         private void SetConsoleWindowHeight(float height) => _consoleRect.sizeDelta = new Vector2(_consoleRect.sizeDelta.x, height);
-
-        public void MaximizeConsole()
-        {
-            if (!_isConsoleMaximized)
-            {
-                if (_isConsoleMinimized)
-                {
-                    SetWindowMinimized(false, _consoleWindowProperties.GetWindowHeight());
-                }
-
-                SetWindowMaximized(true, AnchorPosition.Max, 0);
-            }
-            else
-            {
-                SetWindowMaximized(false, AnchorPosition.Top, _consoleWindowProperties.GetWindowHeight());
-            }
-        }
 
         private void SetWindowMaximized(bool enabled, AnchorPosition anchorPosition, float windowHeight)
         {
@@ -351,7 +374,6 @@ namespace TOMICZ.Debugger
                     _consoleRect.anchorMin = new Vector2(0, 0);
                     break;
             }
-
         }
     }
 }

@@ -2653,7 +2653,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7896174972223120371}
         m_TargetAssemblyTypeName: TOMICZ.Debugger.ConsoleWindow, Assembly-CSharp-firstpass
-        m_MethodName: MaximizeConsole
+        m_MethodName: EnableAutoScrolling
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
