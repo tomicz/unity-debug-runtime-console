@@ -62,6 +62,32 @@ namespace TOMICZ.Debugger
             ShowFPS();
         }
 
+        public void Log(string message)
+        {
+            _consoleText.text += GetMessageType(MessageType.Log) + message + "\n";
+            UpdateScrollOnNewInput();
+            UpdateHeaderOutput(message);
+        }
+
+        public void Header(string message)
+        {
+            _consoleText.text += GetMessageType(MessageType.Header) + message.ToUpper() + "</color>" + "\n";
+            UpdateScrollOnNewInput();
+            UpdateHeaderOutput(message);
+        }
+
+        public void Error(string message)
+        {
+            _consoleText.text += GetMessageType(MessageType.Error) + message + "\n";
+            UpdateScrollOnNewInput();
+            UpdateHeaderOutput(message);
+        }
+
+        public void Loop(string message)
+        {
+            _loopText.text = GetMessageType(MessageType.Loop) + message;
+        }
+
         public void PrintMessage(MessageType messageType, string message)
         {
             if (_consoleText.text != null)
@@ -202,6 +228,7 @@ namespace TOMICZ.Debugger
         private void PrintConsoleMessage(string message)
         {
             _consoleText.text += "~ <color=orange>[Console]</color> " + message + "\n";
+            UpdateHeaderOutput(message);
             UpdateScrollOnNewInput();
         }
 
@@ -373,6 +400,14 @@ namespace TOMICZ.Debugger
                 case AnchorPosition.Max:
                     _consoleRect.anchorMin = new Vector2(0, 0);
                     break;
+            }
+        }
+
+        private void UpdateHeaderOutput(string message)
+        {
+            if (_header.gameObject.activeInHierarchy)
+            {
+                _headerOutputText.text = "<color=orange>[Main]</color> " + message;
             }
         }
     }

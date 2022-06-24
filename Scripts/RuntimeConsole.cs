@@ -22,6 +22,26 @@ namespace TOMICZ.Debugger
             WindowElementList.Add(windowElement);
         }
 
+        public static void Log(string message)
+        {
+            _consoleWindow.Log(message);
+        }
+
+        public static void Header(string message)
+        {
+            _consoleWindow.Header(message);
+        }
+
+        public static void Error(string message)
+        {
+            _consoleWindow.Error(message);
+        }
+
+        public static void Loop(string message)
+        {
+            _consoleWindow.Loop(message);
+        }
+
         /// <summary>
         /// Prints message to Console Window.
         /// </summary>
