@@ -80,14 +80,14 @@ namespace TOMICZ.Debugger
                         _loopText.text = GetMessageType(MessageType.Loop) + message;
                         break;
                     case MessageType.Header:
-                        _consoleText.text += GetMessageType(MessageType.Header) + message + "</color>" + "\n";
+                        _consoleText.text += GetMessageType(MessageType.Header) + message.ToUpper() + "</color>" + "\n";
                         UpdateScrollOnNewInput();
                         break;
                 }
 
-                if (_header.gameObject.activeInHierarchy)
+                if (messageType != MessageType.Loop && _header.gameObject.activeInHierarchy)
                 {
-                    _headerOutputText.text = _consoleText.text;
+                    _headerOutputText.text = "<color=orange>[Main]</color> " + message;
                 }
             }
         }
