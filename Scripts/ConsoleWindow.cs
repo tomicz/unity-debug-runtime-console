@@ -201,7 +201,7 @@ namespace TOMICZ.Debugger
 
         private void PrintConsoleMessage(string message)
         {
-            _consoleText.text += " ~ <color=orange>[Console]</color> " + message + "\n";
+            _consoleText.text += "~ <color=orange>[Console]</color> " + message + "\n";
             UpdateScrollOnNewInput();
         }
 
@@ -250,13 +250,13 @@ namespace TOMICZ.Debugger
             switch (messageType)
             {
                 case MessageType.Error:
-                    return " ~ <color=red>[Error]</color> ";
+                    return "~ <color=red>[Error]</color> ";
                 case MessageType.Log:
-                    return " ~ <color=white>[Log]</color> ";
+                    return "~ <color=white>[Log]</color> ";
                 case MessageType.Loop:
                     return "<color=yellow>[Loop0]</color> ";
                 case MessageType.Header:
-                    return " ~ <color=yellow>";
+                    return "~ <color=yellow>";
             }
 
             return "message-empty";
