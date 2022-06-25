@@ -265,6 +265,13 @@ namespace TOMICZ.Debugger
 
             CheckConsoleExpandStateOnInitilisation();
             MinimizeConsole();
+
+            // Prevents console to go full screen if in previous session window was minimized. 
+            if(_isConsoleMinimized == true)
+            {
+                return;
+            }
+
             MaximizeConsole();
         }
 
