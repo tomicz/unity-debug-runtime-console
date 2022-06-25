@@ -188,7 +188,6 @@ namespace TOMICZ.Debugger
 
                 _isConsoleTransparent = true;
                 _consoleWindowProperties.CacheTransparencyValue(true);
-                PrintConsoleMessage("Transperancy mode enabled.");
             }
             else
             {
@@ -199,24 +198,24 @@ namespace TOMICZ.Debugger
 
                 _isConsoleTransparent = false;
                 _consoleWindowProperties.CacheTransparencyValue(false);
-                PrintConsoleMessage("Transperancy mode disabled.");
             }
+
+            PrintConsoleMessage("Transperancy mode enabled: " + _isConsoleTransparent);
         }
 
         public void EnableClickThrough()
         {
             if (_isRaycastingEnabled)
             {
-                PrintConsoleMessage("Click through UI mode enabled.");
                 EnableRaycasting(false);
                 _isRaycastingEnabled = false;
             }
             else
             {
-                PrintConsoleMessage("Click through UI mode disabled.");
                 EnableRaycasting(true);
                 _isRaycastingEnabled = true;
             }
+            PrintConsoleMessage("Click through UI mode enabled: " + _isRaycastingEnabled);
         }
 
         private void ShowFPS()
