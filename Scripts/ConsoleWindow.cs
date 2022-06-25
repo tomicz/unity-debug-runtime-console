@@ -263,11 +263,11 @@ namespace TOMICZ.Debugger
             SetRectSize(_consoleRect, new Vector2(_consoleRect.sizeDelta.x, _consoleWindowProperties.GetWindowHeight()));
             EnableAutoScrolling();
 
-            CheckConsoleExpandStateOnInitilisation();
             MinimizeConsole();
+            CheckConsoleExpandStateOnInitilisation();
 
             // Prevents console to go full screen if in previous session window was minimized. 
-            if(_isConsoleMinimized == true)
+            if (_isConsoleMinimized == true)
             {
                 return;
             }
@@ -348,9 +348,10 @@ namespace TOMICZ.Debugger
             {
                 element.gameObject.SetActive(true);
             }
-            _expandButton.gameObject.SetActive(false);
 
+            _expandButton.gameObject.SetActive(false);
             _consoleWindowProperties.SetBoolean(CONSOLE_EXPANDED_KEY, true);
+            PrintConsoleMessage("Console expanded: " + true);
         }
 
         public void HideConsole()
@@ -362,6 +363,7 @@ namespace TOMICZ.Debugger
 
             _expandButton.gameObject.SetActive(true);
             _consoleWindowProperties.SetBoolean(CONSOLE_EXPANDED_KEY, false);
+            PrintConsoleMessage("Console expanded: " + false);
         }
 
         public void MinimizeConsole()
