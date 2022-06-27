@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 namespace TOMICZ.Debugger
 {
@@ -100,6 +101,7 @@ namespace TOMICZ.Debugger
         private void Update()
         {
             ShowFPS();
+            _consoleWindowProperties.SetupInput();
         }
 
         public void Log(string message)
@@ -164,7 +166,7 @@ namespace TOMICZ.Debugger
 
         public void DragToExpandConsole()
         {
-            SetRectSize(_consoleRect, new Vector2(0, _consoleRect.position.y - Input.mousePosition.y));
+            SetRectSize(_consoleRect, new Vector2(0, _consoleRect.position.y - _consoleWindowProperties.mousePosition.y));
 
             if (_isConsoleMaximized)
             {
@@ -241,11 +243,22 @@ namespace TOMICZ.Debugger
 
         private void SetupDependencies()
         {
+            _consoleWindowProperties = new ConsoleWindowProperties();
             RuntimeConsole.SetupConsoleWindow(this);
 
             _consoleRect = GetComponent<RectTransform>();
-            _consoleWindowProperties = new ConsoleWindowProperties();
             _scrollRect = GetComponentInChildren<ScrollRect>();
+
+            CheckInputSystem();
+        }
+
+        private void CheckInputSystem()
+        {
+#if ENABLE_INPUT_SYSTEM
+            PrintConsoleMessage("New input system initilised.");
+#else
+            PrintConsoleMessage("Old input system initilised. New input system is also supported.");
+#endif
         }
 
         private void LoadPersistantData()

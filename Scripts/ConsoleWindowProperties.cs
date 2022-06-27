@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TOMICZ.Debugger
 {
@@ -8,9 +9,11 @@ namespace TOMICZ.Debugger
         private string _clickThroughEnabled = "clickThroughEnabled";
         private string _windowHeight = "windowHeight";
 
+        public Vector2 mousePosition = Vector2.zero;
+
         public void CacheTransparencyValue(bool value)
         {
-            if(value)
+            if (value)
             {
                 PlayerPrefs.SetInt(_transperancyEnabled, 1);
             }
@@ -123,6 +126,16 @@ namespace TOMICZ.Debugger
             }
 
             return false;
+        }
+
+        public void SetupInput()
+        {
+#if ENABLE_INPUT_SYSTEM
+            mousePosition = Mouse.current.position.ReadValue();
+#else
+            mousePosition = Input.mousePosition;
+            RuntimeConsole.Log("Old input system initilised.");
+#endif
         }
     }
 }
