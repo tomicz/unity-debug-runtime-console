@@ -1,5 +1,8 @@
 using UnityEngine;
+
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+#endif
 
 namespace TOMICZ.Debugger
 {
@@ -134,7 +137,6 @@ namespace TOMICZ.Debugger
             mousePosition = Mouse.current.position.ReadValue();
 #else
             mousePosition = Input.mousePosition;
-            RuntimeConsole.Log("Old input system initilised.");
 #endif
         }
     }
