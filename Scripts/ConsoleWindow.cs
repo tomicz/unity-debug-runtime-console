@@ -313,8 +313,8 @@ namespace TOMICZ.Debugger
                 image.raycastTarget = value;
             }
 
-            _consoleWindowProperties.CacheClickThroughValue(value);
             _consoleText.raycastTarget = value;
+            _consoleWindowProperties.CacheClickThroughValue(value);
         }
 
         private void UpdateScrollOnNewInput()
