@@ -39,13 +39,7 @@ namespace TOMICZ.Debugger
         private ConsoleWindowProperties _consoleWindowProperties;
         private ScrollRect _scrollRect;
 
-        private bool _isConsoleMinimized = false;
         private bool _isAutoScrollingEnabled = true;
-
-        private const string CONSOLE_EXPANDED_KEY = "console-expanded-key";
-        private const string CONSOLE_MINIMIZED_KEY = "console-minimized-key";
-        private const string CONSOLE_MAXIMIZED_KEY = "console-maximized-key";
-        private const string CONSOLE_AUTOSCROLL_KEY = "console-autoscroll-key";
 
         private void Awake()
         {
@@ -216,12 +210,9 @@ namespace TOMICZ.Debugger
 
         private void UpdateScrollOnNewInput()
         {
-            if (!_isConsoleMinimized)
+            if (_isAutoScrollingEnabled)
             {
-                if (_isAutoScrollingEnabled)
-                {
-                    _scrollRect.verticalNormalizedPosition = 0;
-                }
+                _scrollRect.verticalNormalizedPosition = 0;
             }
         }
 
@@ -248,7 +239,6 @@ namespace TOMICZ.Debugger
         {
             _mainContainer.gameObject.SetActive(value);
             _expandButton.gameObject.SetActive(!value);
-            _consoleWindowProperties.SetBoolean(CONSOLE_EXPANDED_KEY, value);
         }
 
         private void SetWindowMinimized(bool value)
@@ -261,7 +251,6 @@ namespace TOMICZ.Debugger
             _backgroundImage.enabled = value;
             _headerDescription.transform.gameObject.SetActive(value);
             _headerOutputText.gameObject.SetActive(!value);
-            _consoleWindowProperties.SetBoolean(CONSOLE_MINIMIZED_KEY, value);
         }
 
         private void SetWindowTransparent(bool value)
