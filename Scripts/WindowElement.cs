@@ -17,9 +17,18 @@ namespace TOMICZ.Debugger
             RuntimeConsole.AddWindowElement(this);
         }
 
-        public void EnableTransperancy() => SetBackgroundAlpha(_elementAlphaTransperancy);
+        public void EnableTransperancy(bool value)
+        {
+            if (value)
+            {
+                SetBackgroundAlpha(_elementAlphaTransperancy);
+            }
+            else
+            {
+                SetBackgroundAlpha(1);
+            }
 
-        public void DisableTransperancy() => SetBackgroundAlpha(1);
+        }
 
         private void SetBackgroundAlpha(float alphaAmount)
         {
