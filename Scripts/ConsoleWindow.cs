@@ -56,7 +56,7 @@ namespace TOMICZ.Debugger
         private void Awake()
         {
             SetupDependencies();
-            LoadPersistantData();
+            //LoadPersistantData();
         }
 
         private void OnEnable()
@@ -67,34 +67,6 @@ namespace TOMICZ.Debugger
         private void OnDisable()
         {
             Application.logMessageReceived -= OnUnityLogMessageReceived;
-        }
-
-        private void OnUnityLogMessageReceived(string logString, string stackTrace, LogType type)
-        {
-            if(_unityText == null)
-            {
-                Error("Couln't print Unity message because TMP_Text _unityText component referecne is not added in the inspector. Inspect Console Window prefab and drag _unityText reference.");
-                return;
-            }
-
-            switch (type)
-            {
-                case LogType.Assert:
-                    PrintMessage(MessageType.Unity, "<color=red>[Assert]</color>" + logString);
-                    break;
-                case LogType.Error:
-                    PrintMessage(MessageType.Unity, "<color=red>[Error]</color>" + logString);
-                    break;
-                case LogType.Exception:
-                    PrintMessage(MessageType.Unity, "<color=red>[Exception]</color>" + logString);
-                    break;
-                case LogType.Log:
-                    PrintMessage(MessageType.Unity, "<color=white>[Log]</color>" + logString);
-                    break;
-                case LogType.Warning:
-                    PrintMessage(MessageType.Unity, "<color=yellow>[Warning]</color>" + logString);
-                    break;
-            }
         }
 
         private void Update()
@@ -474,6 +446,34 @@ namespace TOMICZ.Debugger
             if (_header.gameObject.activeInHierarchy)
             {
                 _headerOutputText.text = "<color=orange>[Main]</color> " + message;
+            }
+        }
+
+        private void OnUnityLogMessageReceived(string logString, string stackTrace, LogType type)
+        {
+            if (_unityText == null)
+            {
+                Error("Couln't print Unity message because TMP_Text _unityText component referecne is not added in the inspector. Inspect Console Window prefab and drag _unityText reference.");
+                return;
+            }
+
+            switch (type)
+            {
+                case LogType.Assert:
+                    PrintMessage(MessageType.Unity, "<color=red>[Assert]</color>" + logString);
+                    break;
+                case LogType.Error:
+                    PrintMessage(MessageType.Unity, "<color=red>[Error]</color>" + logString);
+                    break;
+                case LogType.Exception:
+                    PrintMessage(MessageType.Unity, "<color=red>[Exception]</color>" + logString);
+                    break;
+                case LogType.Log:
+                    PrintMessage(MessageType.Unity, "<color=white>[Log]</color>" + logString);
+                    break;
+                case LogType.Warning:
+                    PrintMessage(MessageType.Unity, "<color=yellow>[Warning]</color>" + logString);
+                    break;
             }
         }
     }
