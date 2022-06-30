@@ -28,7 +28,7 @@ namespace TOMICZ.Debugger
         [SerializeField] private TMP_Text _headerDescription; 
         [SerializeField] private TMP_Text _fpsCounterText;
         [SerializeField] private Button _expandButton;
-        [SerializeField] private RectTransform _header;
+        [SerializeField] private Header _header;
         [SerializeField] private TMP_Text _headerOutputText;
         [SerializeField] private Image[] _raycastImages;
         [SerializeField] private Transform[] _visibleElements;
@@ -56,17 +56,34 @@ namespace TOMICZ.Debugger
         private void Awake()
         {
             SetupDependencies();
-            //LoadPersistantData();
+            LoadPersistantData();
         }
 
         private void OnEnable()
         {
+            RegisterHeaderEvents();
             Application.logMessageReceived += OnUnityLogMessageReceived;
         }
 
         private void OnDisable()
         {
+            UnregisterHeaderEvents();
             Application.logMessageReceived -= OnUnityLogMessageReceived;
+        }
+
+        private void RegisterHeaderEvents()
+        {
+            _header.OnConsoleCollapsedEvent = HandleOnConsoleCollapsed;
+        }
+
+        private void UnregisterHeaderEvents()
+        {
+            _header.OnConsoleCollapsedEvent -= HandleOnConsoleCollapsed;
+        }
+
+        private void HandleOnConsoleCollapsed(bool collapsed)
+        {
+            CollapseConsole(collapsed);
         }
 
         private void Update()
@@ -270,7 +287,7 @@ namespace TOMICZ.Debugger
         {
             if (_isConsoleExpanded)
             {
-                HideConsole();
+                CollapseConsole(true);
             }
             else
             {
@@ -325,28 +342,30 @@ namespace TOMICZ.Debugger
             return "message-empty";
         }
 
-        public void ExpandConsole()
+        private void ExpandConsole()
         {
-            foreach(var element in _visibleElements)
-            {
-                element.gameObject.SetActive(true);
-            }
+            EnableElements(true);
 
             _expandButton.gameObject.SetActive(false);
             _consoleWindowProperties.SetBoolean(CONSOLE_EXPANDED_KEY, true);
             PrintConsoleMessage("Console expanded: " + true);
         }
 
-        public void HideConsole()
+        private void CollapseConsole(bool value)
+        {
+            EnableElements(value);
+
+            _expandButton.gameObject.SetActive(!value);
+            _consoleWindowProperties.SetBoolean(CONSOLE_EXPANDED_KEY, value);
+            PrintConsoleMessage("Console expanded: " + value);
+        }
+
+        private void EnableElements(bool value)
         {
             foreach (var element in _visibleElements)
             {
-                element.gameObject.SetActive(false);
+                element.gameObject.SetActive(value);
             }
-
-            _expandButton.gameObject.SetActive(true);
-            _consoleWindowProperties.SetBoolean(CONSOLE_EXPANDED_KEY, false);
-            PrintConsoleMessage("Console expanded: " + false);
         }
 
         public void MinimizeConsole()
@@ -358,7 +377,7 @@ namespace TOMICZ.Debugger
                     SetWindowMaximized(false, AnchorPosition.Top, _consoleWindowProperties.GetWindowHeight());
                 }
 
-                SetWindowMinimized(true, _header.sizeDelta.y);
+                //SetWindowMinimized(true, _header.sizeDelta.y);
             }
             else
             {
@@ -449,9 +468,9 @@ namespace TOMICZ.Debugger
             }
         }
 
-        private void OnUnityLogMessageReceived(string logString, string stackTrace, LogType type)
+                private void OnUnityLogMessageReceived(string logString, string stackTrace, LogType type)
         {
-            if (_unityText == null)
+            if(_unityText == null)
             {
                 Error("Couln't print Unity message because TMP_Text _unityText component referecne is not added in the inspector. Inspect Console Window prefab and drag _unityText reference.");
                 return;

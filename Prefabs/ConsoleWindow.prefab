@@ -900,10 +900,10 @@ RectTransform:
   m_Father: {fileID: 7896174972865814662}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 171, y: -25}
+  m_SizeDelta: {x: 0, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6006182736874484610
 CanvasRenderer:
@@ -2199,9 +2199,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7896174972223120371}
-        m_TargetAssemblyTypeName: TOMICZ.Debugger.ConsoleWindow, Assembly-CSharp-firstpass
-        m_MethodName: ExpandConsole
+      - m_Target: {fileID: 428328399120777620}
+        m_TargetAssemblyTypeName: TOMICZ.Debugger.Header, Assembly-CSharp-firstpass
+        m_MethodName: CollapseConsole
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2248,10 +2248,10 @@ RectTransform:
   m_Father: {fileID: 7896174972865814662}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 73, y: -25}
+  m_SizeDelta: {x: 0, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4529257617520318248
 CanvasRenderer:
@@ -2734,10 +2734,10 @@ RectTransform:
   m_Father: {fileID: 7896174972865814662}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 122, y: -25}
+  m_SizeDelta: {x: 0, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6002573488447879506
 CanvasRenderer:
@@ -3122,10 +3122,10 @@ RectTransform:
   m_Father: {fileID: 7896174972865814662}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 24, y: -25}
+  m_SizeDelta: {x: 0, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4177608977379839737
 CanvasRenderer:
@@ -4155,7 +4155,7 @@ MonoBehaviour:
   _headerDescription: {fileID: 7896174972358078615}
   _fpsCounterText: {fileID: 605886462707604709}
   _expandButton: {fileID: 7092047435333760333}
-  _header: {fileID: 7896174972659668868}
+  _header: {fileID: 428328399120777620}
   _headerOutputText: {fileID: 6042740585103701455}
   _raycastImages:
   - {fileID: 3548614431609095326}
@@ -4497,6 +4497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d524320437b040cb9f067a03d726e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rectTransform: {fileID: 7896174972659668868}
 --- !u!1 &7896174972660045903
 GameObject:
   m_ObjectHideFlags: 0
@@ -4624,10 +4625,10 @@ RectTransform:
   m_Father: {fileID: 7896174972865814662}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 269, y: -25}
+  m_SizeDelta: {x: 0, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7896174972677923184
 CanvasRenderer:
@@ -4711,9 +4712,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7896174972223120371}
-        m_TargetAssemblyTypeName: TOMICZ.Debugger.ConsoleWindow, Assembly-CSharp-firstpass
-        m_MethodName: HideConsole
+      - m_Target: {fileID: 428328399120777620}
+        m_TargetAssemblyTypeName: TOMICZ.Debugger.Header, Assembly-CSharp-firstpass
+        m_MethodName: CollapseConsole
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5075,10 +5076,10 @@ RectTransform:
   m_Father: {fileID: 7896174973242335122}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 750.5, y: -23.29}
+  m_SizeDelta: {x: 1501, y: 36.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7896174973144868561
 CanvasRenderer:
@@ -5463,10 +5464,10 @@ RectTransform:
   m_Father: {fileID: 7896174972865814662}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 220, y: -25}
+  m_SizeDelta: {x: 0, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4103954932092817441
 CanvasRenderer:
