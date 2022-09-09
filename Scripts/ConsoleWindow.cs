@@ -35,6 +35,9 @@ namespace TOMICZ.Debugger
         [SerializeField] private Transform[] _visibleElements;
         [SerializeField] private Image _backgroundImage;
 
+        [Header("Properties")]
+        [SerializeField] private bool _isPersistant;
+
         private RectTransform _consoleRect;
         private ConsoleWindowProperties _consoleWindowProperties;
         private ScrollRect _scrollRect;
@@ -44,6 +47,7 @@ namespace TOMICZ.Debugger
         private void Awake()
         {
             SetupDependencies();
+            PersistOnSceneChange();
         }
 
         private void OnEnable()
@@ -294,6 +298,14 @@ namespace TOMICZ.Debugger
                 case LogType.Warning:
                     PrintMessage(MessageType.Unity, "<color=yellow>[Warning]</color>" + logString);
                     break;
+            }
+        }
+
+        private void PersistOnSceneChange()
+        {
+            if (_isPersistant)
+            {
+                DontDestroyOnLoad(gameObject);
             }
         }
     }
