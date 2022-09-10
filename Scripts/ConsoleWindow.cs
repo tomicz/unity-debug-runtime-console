@@ -43,6 +43,7 @@ namespace TOMICZ.Debugger
         private ScrollRect _scrollRect;
 
         private bool _isAutoScrollingEnabled = true;
+        private bool _isEnabled = false;
 
         private void Awake()
         {
@@ -136,6 +137,8 @@ namespace TOMICZ.Debugger
                     break;
             }
         }
+
+        public void EnableConsole() => gameObject.SetActive(_isEnabled = !_isEnabled);
 
         private void RegisterHeaderEvents()
         {
