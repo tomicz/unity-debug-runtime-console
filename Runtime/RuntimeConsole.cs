@@ -22,32 +22,20 @@ namespace TOMICZ.Debugger
             WindowElementList.Add(windowElement);
         }
 
-        public static void Log(string message)
-        {
-            _consoleWindow.Log(message);
-        }
+        public static void Log(string message) => LogWriter.LogMessage(LogMessage.GetType(LogMessageType.Log) + message);
 
-        public static void Header(string message)
-        {
-            _consoleWindow.Header(message);
-        }
+        public static void Header(string message) => LogWriter.LogMessage(LogMessage.GetType(LogMessageType.Header) + message);
 
-        public static void Error(string message)
-        {
-            _consoleWindow.Error(message);
-        }
+        public static void Error(string message) => LogWriter.LogMessage(LogMessage.GetType(LogMessageType.Error) + message);
 
-        public static void Loop(string message)
-        {
-            _consoleWindow.Loop(message);
-        }
+        public static void Loop(string message) => LogWriter.LogMessage(LogMessage.GetType(LogMessageType.Loop) + message);
 
         /// <summary>
         /// Prints message to Console Window.
         /// </summary>
         /// <param name="messageType">Selects type of a message.</param>
         /// <param name="message">Print message container.</param>
-        public static void PrintMessage(MessageType messageType, string message)
+        public static void PrintMessage(LogMessageType messageType, string message)
         {
             if (HasConsole())
             {
@@ -79,6 +67,6 @@ namespace TOMICZ.Debugger
             return true;
         }
 
-        private static void WriteMessage(MessageType messageType, string message) => _consoleWindow.PrintMessage(messageType, message);
+        private static void WriteMessage(LogMessageType messageType, string message) => _consoleWindow.PrintMessage(messageType, message);
     }
 }

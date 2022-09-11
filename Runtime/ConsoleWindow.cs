@@ -4,15 +4,6 @@ using UnityEngine.UI;
 
 namespace TOMICZ.Debugger
 {
-    public enum MessageType
-    {
-        Error,
-        Log,
-        Loop,
-        Header,
-        Unity
-    }
-
     public enum AnchorPosition
     {
         Top,
@@ -66,58 +57,58 @@ namespace TOMICZ.Debugger
 
         public void Log(string message)
         {
-            _consoleText.text += GetMessageType(MessageType.Log) + message + "\n";
+            //WriteConsoleMessage(message, GetMessageType(MessageType.Log));
             UpdateScrollOnNewInput();
             UpdateHeaderOutput(message);
         }
 
         public void Header(string message)
         {
-            _consoleText.text += GetMessageType(MessageType.Header) + message.ToUpper() + "</color>" + "\n";
+            //_consoleText.text += GetMessageType(MessageType.Header) + message.ToUpper() + "</color>" + "\n";
             UpdateScrollOnNewInput();
             UpdateHeaderOutput(message);
         }
 
         public void Error(string message)
         {
-            _consoleText.text += GetMessageType(MessageType.Error) + message + "\n";
+            //_consoleText.text += GetMessageType(MessageType.Error) + message + "\n";
             UpdateScrollOnNewInput();
             UpdateHeaderOutput(message);
         }
 
         public void Loop(string message)
         {
-            _loopText.text = GetMessageType(MessageType.Loop) + message;
+            //_loopText.text = GetMessageType(MessageType.Loop) + message;
         }
 
-        public void PrintMessage(MessageType messageType, string message)
+        public void PrintMessage(LogMessageType logType, string message)
         {
             if (_consoleText.text != null)
             {
-                switch (messageType)
+                switch (logType)
                 {
-                    case MessageType.Error:
-                        _consoleText.text += GetMessageType(MessageType.Error) + message + "\n";
+                    case LogMessageType.Error:
+                        _consoleText.text += LogMessage.GetType(LogMessageType.Error) + message + "\n";
                         UpdateScrollOnNewInput();
                         break;
-                    case MessageType.Log:
-                        _consoleText.text += GetMessageType(MessageType.Log) + message + "\n";
+                    case LogMessageType.Log:
+                        _consoleText.text += LogMessage.GetType(LogMessageType.Log) + message + "\n";
                         UpdateScrollOnNewInput();
                         break;
-                    case MessageType.Loop:
-                        _loopText.text = GetMessageType(MessageType.Loop) + message;
+                    case LogMessageType.Loop:
+                        _loopText.text = LogMessage.GetType(LogMessageType.Loop) + message;
                         break;
-                    case MessageType.Header:
-                        _consoleText.text += GetMessageType(MessageType.Header) + message.ToUpper() + "</color>" + "\n";
+                    case LogMessageType.Header:
+                        _consoleText.text += LogMessage.GetType(LogMessageType.Header) + message.ToUpper() + "</color>" + "\n";
                         UpdateScrollOnNewInput();
                         break;
-                    case MessageType.Unity:
-                        _unityText.text += GetMessageType(MessageType.Unity) + message + "\n";
+                    case LogMessageType.Unity:
+                        _unityText.text += LogMessage.GetType(LogMessageType.Unity) + message + "\n";
                         UpdateScrollOnNewInput();
                         break;
                 }
 
-                if (messageType != MessageType.Loop && _header.gameObject.activeInHierarchy)
+                if (logType != LogMessageType.Loop && _header.gameObject.activeInHierarchy)
                 {
                     _headerOutputText.text = "<color=orange>[Main]</color> " + message;
                 }
@@ -229,25 +220,6 @@ namespace TOMICZ.Debugger
             }
         }
 
-        private string GetMessageType(MessageType messageType)
-        {
-            switch (messageType)
-            {
-                case MessageType.Error:
-                    return "~ <color=red>[Error]</color> ";
-                case MessageType.Log:
-                    return "~ <color=white>[Log]</color> ";
-                case MessageType.Loop:
-                    return "<color=yellow>[Loop0]</color> ";
-                case MessageType.Header:
-                    return "~ <color=yellow>";
-                case MessageType.Unity:
-                    return "~ <color=#70afe9>[Unity]</color>";
-            }
-
-            return "message-empty";
-        }
-
         private void CollapseConsole(bool value)
         {
             _mainContainer.gameObject.SetActive(value);
@@ -293,19 +265,19 @@ namespace TOMICZ.Debugger
             switch (type)
             {
                 case LogType.Assert:
-                    PrintMessage(MessageType.Unity, "<color=red>[Assert]</color>" + logString);
+                    PrintMessage(LogMessageType.Unity, "<color=red>[Assert]</color>" + logString);
                     break;
                 case LogType.Error:
-                    PrintMessage(MessageType.Unity, "<color=red>[Error]</color>" + logString);
+                    PrintMessage(LogMessageType.Unity, "<color=red>[Error]</color>" + logString);
                     break;
                 case LogType.Exception:
-                    PrintMessage(MessageType.Unity, "<color=red>[Exception]</color>" + logString);
+                    PrintMessage(LogMessageType.Unity, "<color=red>[Exception]</color>" + logString);
                     break;
                 case LogType.Log:
-                    PrintMessage(MessageType.Unity, "<color=white>[Log]</color>" + logString);
+                    PrintMessage(LogMessageType.Unity, "<color=white>[Log]</color>" + logString);
                     break;
                 case LogType.Warning:
-                    PrintMessage(MessageType.Unity, "<color=yellow>[Warning]</color>" + logString);
+                    PrintMessage(LogMessageType.Unity, "<color=yellow>[Warning]</color>" + logString);
                     break;
             }
         }
