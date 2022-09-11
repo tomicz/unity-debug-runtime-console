@@ -5,7 +5,7 @@ namespace TOMICZ.Debugger
 {
     public static class LogWriter
     {
-        private static string path = Application.persistentDataPath + "/logs.txt";
+        public static string path = Application.persistentDataPath + "/logs.txt";
 
         /// <summary>
         /// Logs a message to a persistent data path on your device.
