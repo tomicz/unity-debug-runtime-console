@@ -34,6 +34,7 @@ namespace TOMICZ.Debugger
         [SerializeField] private Image[] _raycastImages;
         [SerializeField] private Transform[] _visibleElements;
         [SerializeField] private Image _backgroundImage;
+        [SerializeField] private TMP_InputField _commandInputField;
 
         [Header("Properties")]
         [SerializeField] private bool _isPersistant;
@@ -139,6 +140,11 @@ namespace TOMICZ.Debugger
         }
 
         public void EnableConsole() => gameObject.SetActive(_isEnabled = !_isEnabled);
+
+        public void SelectInputField()
+        {
+            _commandInputField.Select();
+        }
 
         private void RegisterHeaderEvents()
         {
