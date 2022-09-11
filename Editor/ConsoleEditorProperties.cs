@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace TOMICZ.Debugger
 {
-    public class RuntimeConsoleEditorProperties
+    public class ConsoleEditorProperties
     {
         [MenuItem("GameObject/Tomicz/New Console Window")]
         public static void CreateConsolePrefab()
