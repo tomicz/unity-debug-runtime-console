@@ -22,7 +22,7 @@ namespace TOMICZ.Debugger
             }
             catch (Exception exception)
             {
-                UnityEngine.Debug.LogWarning($"{exception.Message}, file at {path} does not exist");
+                UnityEngine.Debug.LogWarning($"{exception.Message}");
             }
         }
     }
