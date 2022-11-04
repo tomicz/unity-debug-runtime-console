@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Diagnostics;
+using System;
 
 namespace TOMICZ.Debugger
 {
@@ -11,7 +12,18 @@ namespace TOMICZ.Debugger
         [MenuItem("Tomicz/Debugger/Open Logs", false)]
         private static void OpenLogs()
         {
-            Process.Start(path);
+            try
+            {
+                using(Process process = new Process())
+                {
+                    process.StartInfo.FileName = path;
+                    process.Start();
+                }
+            }
+            catch (Exception exception)
+            {
+                UnityEngine.Debug.LogWarning($"{exception.Message}, file at {path} does not exist");
+            }
         }
     }
 }
