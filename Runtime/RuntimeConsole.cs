@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,11 +6,12 @@ namespace TOMICZ.Debugger
 {
     public static class RuntimeConsole
     {
-        private static ConsoleWindow _consoleWindow;
+        public static Action OnUnityRunEvent;
 
         public static List<WindowElement> WindowElementList = new List<WindowElement>();
 
         private static RuntimeCommands _runtimeCommands;
+        private static ConsoleWindow _consoleWindow;
 
         public static void SetupConsoleWindow(ConsoleWindow consoleWindow)
         {
@@ -17,10 +19,7 @@ namespace TOMICZ.Debugger
             _runtimeCommands = new RuntimeCommands();
         }
 
-        public static void AddWindowElement(WindowElement windowElement)
-        {
-            WindowElementList.Add(windowElement);
-        }
+        public static void AddWindowElement(WindowElement windowElement) => WindowElementList.Add(windowElement);
 
         public static void Log(string message) => LogWriter.LogMessage(LogMessage.GetType(LogMessageType.Log) + message);
 
@@ -43,15 +42,13 @@ namespace TOMICZ.Debugger
             }
         }
 
-        public static void PrintList(List<object> list)
-        {
-            _runtimeCommands.PrintList(list);
-        }
+        public static void PrintList(List<object> list) => _runtimeCommands.PrintList(list);
 
-        public static void PrintList(List<object> list, bool isSerialized)
-        {
-            _runtimeCommands.PrintList(list, isSerialized);
-        }
+        public static void PrintList(List<object> list, bool isSerialized) => _runtimeCommands.PrintList(list, isSerialized);
+
+        public static void RegisterEvent(Action action) => OnUnityRunEvent += action;
+
+        public static void RemoveEvent(Action action) => OnUnityRunEvent -= action;
 
         /// <summary>
         /// Checks if Console Window is available. If not, throws a warning to add it. 

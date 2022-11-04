@@ -132,10 +132,9 @@ namespace TOMICZ.Debugger
 
         public void EnableConsole() => gameObject.SetActive(_isEnabled = !_isEnabled);
 
-        public void SelectInputField()
-        {
-            _commandInputField.Select();
-        }
+        public void SelectInputField() => _commandInputField.Select();
+
+        public void RunEvent() => RuntimeConsole.OnUnityRunEvent?.Invoke();
 
         private void RegisterHeaderEvents()
         {
