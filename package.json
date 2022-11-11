@@ -2,8 +2,8 @@
     "name": "com.tomicz.runtime-console",
     "version": "0.0.1",
     "displayName": "Runtime Console",
-    "description": "A debugging solution for your projects.",
-    "unity": "2019.0",
+    "description": "A debugging solution for your unity projects.",
+    "unity": "2018.3",
     "dependencies": {
         "com.unity.textmeshpro": "3.0.6"
     },
