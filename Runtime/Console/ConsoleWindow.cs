@@ -10,7 +10,7 @@ namespace TOMICZ.Debugger
         Max
     }
 
-    public class ConsoleWindow : MonoBehaviour
+    public class ConsoleWindow : MonoBehaviour, ITick
     {
         [Header("Dependencies")]
         [SerializeField] private TMP_Text _consoleText;
@@ -37,6 +37,7 @@ namespace TOMICZ.Debugger
         private bool _isAutoScrollingEnabled = true;
         private bool _isEnabled = false;
 
+
         private void Awake()
         {
             SetupDependencies();
@@ -46,72 +47,24 @@ namespace TOMICZ.Debugger
         private void OnEnable()
         {
             RegisterHeaderEvents();
-            Application.logMessageReceived += OnUnityLogMessageReceived;
         }
 
         private void OnDisable()
         {
             UnregisterHeaderEvents();
-            Application.logMessageReceived -= OnUnityLogMessageReceived;
         }
 
-        public void Log(string message)
+        public void Tick()
         {
-            //WriteConsoleMessage(message, GetMessageType(MessageType.Log));
             UpdateScrollOnNewInput();
-            UpdateHeaderOutput(message);
         }
 
-        public void Header(string message)
-        {
-            //_consoleText.text += GetMessageType(MessageType.Header) + message.ToUpper() + "</color>" + "\n";
-            UpdateScrollOnNewInput();
-            UpdateHeaderOutput(message);
-        }
-
-        public void Error(string message)
-        {
-            //_consoleText.text += GetMessageType(MessageType.Error) + message + "\n";
-            UpdateScrollOnNewInput();
-            UpdateHeaderOutput(message);
-        }
-
-        public void Loop(string message)
-        {
-            //_loopText.text = GetMessageType(MessageType.Loop) + message;
-        }
-
-        public void PrintMessage(LogMessageType logType, string message)
+        public void PrintMessage(LogMessage logMessage)
         {
             if (_consoleText.text != null)
             {
-                switch (logType)
-                {
-                    case LogMessageType.Error:
-                        _consoleText.text += LogMessage.GetType(LogMessageType.Error) + message + "\n";
-                        UpdateScrollOnNewInput();
-                        break;
-                    case LogMessageType.Log:
-                        _consoleText.text += LogMessage.GetType(LogMessageType.Log) + message + "\n";
-                        UpdateScrollOnNewInput();
-                        break;
-                    case LogMessageType.Loop:
-                        _loopText.text = LogMessage.GetType(LogMessageType.Loop) + message;
-                        break;
-                    case LogMessageType.Header:
-                        _consoleText.text += LogMessage.GetType(LogMessageType.Header) + message.ToUpper() + "</color>" + "\n";
-                        UpdateScrollOnNewInput();
-                        break;
-                    case LogMessageType.Unity:
-                        _unityText.text += LogMessage.GetType(LogMessageType.Unity) + message + "\n";
-                        UpdateScrollOnNewInput();
-                        break;
-                }
-
-                if (logType != LogMessageType.Loop && _header.gameObject.activeInHierarchy)
-                {
-                    _headerOutputText.text = "<color=orange>[Main]</color> " + message;
-                }
+                _consoleText.text += logMessage;
+                UpdateScrollOnNewInput();
             }
         }
 
@@ -157,47 +110,35 @@ namespace TOMICZ.Debugger
         private void HandleOnConsoleCollapsed(bool collapsed)
         {
             CollapseConsole(collapsed);
-            PrintConsoleMessage($"Console collapsed: {collapsed}");
         }
 
         private void HandleOnFullscreenEnabled(bool fullscreen)
         {
             SetWindowMinimized(fullscreen);
-            PrintConsoleMessage($"Fullscreen enabled: {fullscreen}");
         }
 
         private void HandleOnTransparentWindow(bool transparent)
         {
             SetWindowTransparent(transparent);
-            PrintConsoleMessage($"Transparency enabled: {transparent}");
         }
 
         private void HandleOnClickThroughEnabled(bool enabled)
         {
             EnableRaycasting(enabled);
-            PrintConsoleMessage($"Click through enabled: {enabled}");
         }
 
         private void HandleOnAutoscrollEnabled(bool enabled)
         {
             _isAutoScrollingEnabled = enabled;
-            PrintConsoleMessage($"Autoscroll enabled: {enabled}");
         }
 
         private void SetupDependencies()
         {
             _consoleWindowProperties = new ConsoleWindowProperties();
-            RuntimeConsole.SetupConsoleWindow(this);
+            RuntimeConsole.Initilise(this);
 
             _consoleRect = GetComponent<RectTransform>();
             _scrollRect = GetComponentInChildren<ScrollRect>();
-        }
-
-        private void PrintConsoleMessage(string message)
-        {
-            _consoleText.text += "~ <color=orange>[Console]</color> " + message + "\n";
-            UpdateHeaderOutput(message);
-            UpdateScrollOnNewInput();
         }
 
         private void EnableRaycasting(bool value)
@@ -213,6 +154,9 @@ namespace TOMICZ.Debugger
 
         private void UpdateScrollOnNewInput()
         {
+            var log = LogWriter.Messages.Pop();
+
+            _consoleText.text += $"[{log.type}] {log.message}\n";
             if (_isAutoScrollingEnabled)
             {
                 _scrollRect.verticalNormalizedPosition = 0;
@@ -250,34 +194,6 @@ namespace TOMICZ.Debugger
             if (_header.gameObject.activeInHierarchy)
             {
                 _headerOutputText.text = "<color=orange>[Main]</color> " + message;
-            }
-        }
-
-        private void OnUnityLogMessageReceived(string logString, string stackTrace, LogType type)
-        {
-            if(_unityText == null)
-            {
-                Error("Couln't print Unity message because TMP_Text _unityText component referecne is not added in the inspector. Inspect Console Window prefab and drag _unityText reference.");
-                return;
-            }
-
-            switch (type)
-            {
-                case LogType.Assert:
-                    PrintMessage(LogMessageType.Unity, "<color=red>[Assert]</color>" + logString);
-                    break;
-                case LogType.Error:
-                    PrintMessage(LogMessageType.Unity, "<color=red>[Error]</color>" + logString);
-                    break;
-                case LogType.Exception:
-                    PrintMessage(LogMessageType.Unity, "<color=red>[Exception]</color>" + logString);
-                    break;
-                case LogType.Log:
-                    PrintMessage(LogMessageType.Unity, "<color=white>[Log]</color>" + logString);
-                    break;
-                case LogType.Warning:
-                    PrintMessage(LogMessageType.Unity, "<color=yellow>[Warning]</color>" + logString);
-                    break;
             }
         }
 

@@ -12,28 +12,46 @@ namespace TOMICZ.Debugger
 
         private static RuntimeCommands _runtimeCommands;
         private static ConsoleWindow _consoleWindow;
+        private static LogWriter _logWriter;
 
-        public static void SetupConsoleWindow(ConsoleWindow consoleWindow)
+        private static List<ITick> _tickables = new List<ITick>();
+
+        public static void Initilise(ConsoleWindow consoleWindow)
         {
             _consoleWindow = consoleWindow;
             _runtimeCommands = new RuntimeCommands();
+            _logWriter = new LogWriter();
+            _tickables.Add(_consoleWindow);
+            _tickables.Add(_logWriter);
+            _logWriter.ClearLogs();
         }
 
         public static void AddWindowElement(WindowElement windowElement) => WindowElementList.Add(windowElement);
 
-        public static void Log(string message) => LogWriter.LogMessage(LogMessage.GetType(LogMessageType.Log) + message);
+        public static void Log(string message)
+        {
+            _logWriter.Write(new LogMessage(LogMessageType.Log, message));
+            Tick();
+        }
 
-        public static void Header(string message) => LogWriter.LogMessage(LogMessage.GetType(LogMessageType.Header) + message);
+        public static void Header(string message)
+        {
+            _logWriter.Write(new LogMessage(LogMessageType.Header, message));
+            Tick();
+        }
 
-        public static void Error(string message) => LogWriter.LogMessage(LogMessage.GetType(LogMessageType.Error) + message);
+        public static void Error(string message)
+        {
+            _logWriter.Write(new LogMessage(LogMessageType.Error, message));
+            Tick();
+        }
 
-        public static void Loop(string message) => LogWriter.LogMessage(LogMessage.GetType(LogMessageType.Loop) + message);
+        public static void Loop(string message)
+        {
+            _logWriter.Write(new LogMessage(LogMessageType.Loop, message));
+            Tick();
+        }
 
-        /// <summary>
-        /// Prints message to Console Window.
-        /// </summary>
-        /// <param name="messageType">Selects type of a message.</param>
-        /// <param name="message">Print message container.</param>
         public static void PrintMessage(LogMessageType messageType, string message)
         {
             if (HasConsole())
@@ -50,10 +68,6 @@ namespace TOMICZ.Debugger
 
         public static void RemoveEvent(Action action) => OnUnityRunEvent -= action;
 
-        /// <summary>
-        /// Checks if Console Window is available. If not, throws a warning to add it. 
-        /// </summary>
-        /// <returns></returns>
         private static bool HasConsole()
         {
             if (_consoleWindow == null)
@@ -64,6 +78,14 @@ namespace TOMICZ.Debugger
             return true;
         }
 
-        private static void WriteMessage(LogMessageType messageType, string message) => _consoleWindow.PrintMessage(messageType, message);
+        private static void WriteMessage(LogMessageType messageType, string message) => _consoleWindow.PrintMessage(new LogMessage(messageType, message));
+
+        private static void Tick()
+        {
+            foreach (var tick in _tickables)
+            {
+                tick.Tick();
+            }
+        }
     }
 }

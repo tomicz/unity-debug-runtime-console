@@ -1,33 +1,36 @@
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 namespace TOMICZ.Debugger
 {
-    public static class LogWriter
+    public class LogWriter : ITick
     {
-        public static string path = Application.persistentDataPath + "/logs.txt";
+        public static Stack<LogMessage> Messages = new Stack<LogMessage>();
 
-        /// <summary>
-        /// Logs a message to a persistent data path on your device.
-        /// </summary>
-        /// <param name="message"></param>
-        public static void LogMessage(string message)
+        public string path = Application.persistentDataPath + "/logs.txt";
+
+        public void Write(LogMessage logMessage)
         {
             using (StreamWriter writer = new StreamWriter(path, true))
             {
-                writer.WriteLine(message);
+                writer.WriteLine($"[{logMessage.type}] {logMessage.message}");
             }
+
+            Messages.Push(logMessage);
         }
 
-        /// <summary>
-        /// Clears existing logs.
-        /// </summary>
-        public static void ClearLogs()
+        public void ClearLogs()
         {
             using (StreamWriter writer = new StreamWriter(path, false))
             {
                 writer.Write("");
             }
+        }
+
+        public void Tick()
+        {
+
         }
     }
 }
