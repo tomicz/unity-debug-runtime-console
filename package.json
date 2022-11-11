@@ -1,0 +1,15 @@
+{
+  "name": "com.tomicz.runtime-console",
+  "version": "0.0.1",
+  "displayName": "Runtime Console",
+  "description": "A debbuging solution for your Unity projects.",
+  "unity": "2019.1",
+  "dependencies": {
+    "com.unity.textmeshpro": "3.0.6",
+ },
+  "author": {
+    "name": "Darko Tomic",
+    "email": "tomiczdarko@gmail.com",
+    "url": "https://github.com/tomicz"
+  }
+}
