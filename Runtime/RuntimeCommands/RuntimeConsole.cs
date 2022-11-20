@@ -48,7 +48,7 @@ namespace TOMICZ.Debugger
 
         public static void Loop(string message)
         {
-            _logWriter.Write(new LogMessage(LogMessageType.Loop, message));
+            _consoleWindow.Loop(message);
             Tick();
         }
 

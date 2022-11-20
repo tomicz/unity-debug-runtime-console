@@ -89,6 +89,8 @@ namespace TOMICZ.Debugger
 
         public void RunEvent() => RuntimeConsole.OnUnityRunEvent?.Invoke();
 
+        public void Loop(string message) => _loopText.text = $"[ {message} ]";
+
         private void RegisterHeaderEvents()
         {
             _header.OnConsoleCollapsedEvent += HandleOnConsoleCollapsed;
