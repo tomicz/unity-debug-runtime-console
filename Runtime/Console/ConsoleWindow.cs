@@ -156,6 +156,11 @@ namespace TOMICZ.Debugger
 
         private void UpdateScrollOnNewInput()
         {
+            if (LogWriter.Messages.Count < 1)
+            {
+                return;
+            }
+
             var log = LogWriter.Messages.Pop();
 
             _consoleText.text += $"[{log.type}] {log.message}\n";
