@@ -1,9 +1,5 @@
 using UnityEngine;
 
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-#endif
-
 namespace TOMICZ.Debugger
 {
     public class ConsoleWindowProperties
@@ -129,15 +125,6 @@ namespace TOMICZ.Debugger
             }
 
             return false;
-        }
-
-        public void SetupInput()
-        {
-#if ENABLE_INPUT_SYSTEM
-            mousePosition = Mouse.current.position.ReadValue();
-#else
-            mousePosition = Input.mousePosition;
-#endif
         }
     }
 }
