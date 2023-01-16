@@ -9,7 +9,7 @@ namespace TOMICZ.Debugger
         Unity
     }
 
-    public class LogMessage
+    public struct LogMessage
     {
         public LogMessageType type => _type;
         public string message => _message;
