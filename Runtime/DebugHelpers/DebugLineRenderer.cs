@@ -19,7 +19,7 @@ namespace TOMICZ.Debugger.DebugVisualisers
         {
             _lineLength = Vector3.Distance(startPosition, endPosition);
 
-            _primitive.transform.position = startPosition + endPosition / 2;
+            _primitive.transform.position = (startPosition + endPosition) / 2;
             _primitive.transform.LookAt(endPosition);
             _primitive.transform.localScale = new Vector3(_lineWidth, _lineWidth, Mathf.Abs(_lineLength));
         }
@@ -30,7 +30,7 @@ namespace TOMICZ.Debugger.DebugVisualisers
 
             _lineWidth = lineWidth;
             _primitive = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            _primitive.transform.position = startPosition + endPosition / 2;
+            _primitive.transform.position = (startPosition + endPosition) / 2;
             _primitive.transform.LookAt(endPosition);
             _primitive.transform.localScale = new Vector3(lineWidth, lineWidth, _lineLength);
 
