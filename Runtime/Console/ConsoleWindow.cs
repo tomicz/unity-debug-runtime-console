@@ -54,6 +54,11 @@ namespace TOMICZ.Debugger
             UnregisterHeaderEvents();
         }
 
+        private void Update()
+        {
+            UpdateDebugVisualisers();
+        }
+
         public void Tick()
         {
             UpdateScrollOnNewInput();
@@ -209,6 +214,17 @@ namespace TOMICZ.Debugger
             if (_isPersistant)
             {
                 DontDestroyOnLoad(gameObject);
+            }
+        }
+
+        private void UpdateDebugVisualisers()
+        {
+            if(RuntimeConsole.DebugLineRenderers.Count > 0)
+            {
+                foreach (var visualiser in RuntimeConsole.DebugLineRenderers)
+                {
+                    visualiser.UpdatePosition();
+                }
             }
         }
     }

@@ -1,20 +1,23 @@
 using System;
 using System.Collections.Generic;
+using TOMICZ.Debugger.DebugVisualisers;
 using UnityEngine;
 
 namespace TOMICZ.Debugger
 {
-    public static class RuntimeConsole
+    public class RuntimeConsole
     {
         public static Action OnUnityRunEvent;
 
         public static List<WindowElement> WindowElementList = new List<WindowElement>();
+        public static Stack<DebugLineRenderer> DebugLineRenderers => _debugLineRenderes;
 
         private static RuntimeCommands _runtimeCommands;
         private static ConsoleWindow _consoleWindow;
         private static LogWriter _logWriter;
 
         private static List<ITick> _tickables = new List<ITick>();
+        private static Stack<DebugLineRenderer> _debugLineRenderes = new Stack<DebugLineRenderer>();
 
         public static void Initilise(ConsoleWindow consoleWindow)
         {
@@ -50,6 +53,20 @@ namespace TOMICZ.Debugger
         {
             _consoleWindow.Loop(message);
             Tick();
+        }
+
+        /// <summary>
+        /// Draw a debug line from pointA to pointB.
+        /// Make sure you call this method only once a frame (Awake(), Start(), OnEnable(), etc). Do not call it in an Update(), unless it is what you want.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="lineWidth"></param>
+        /// <param name="color"></param>
+        public static void DrawLine(Transform start, Transform end, float lineWidth, Color color)
+        {
+            DebugLineRenderer debugLineRenderer = new DebugLineRenderer(start, end, lineWidth, color);
+            _debugLineRenderes.Push(debugLineRenderer);
         }
 
         public static void PrintMessage(LogMessageType messageType, string message)
