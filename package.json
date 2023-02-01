@@ -1,8 +1,8 @@
 {
     "name": "com.tomicz.runtime-console",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "displayName": "Runtime Console",
-    "description": "A debugging solution for your unity projects.",
+    "description": "RuntimeConsole is a logging tool designed for use in Unity game development. It allows developers to monitor and debug their games in real-time during runtime, providing detailed information on game performance, errors, and other relevant data. With its intuitive interface and powerful features, RuntimeConsole streamlines the debugging process and helps developers improve the quality of their games.",
     "unity": "2018.3",
     "dependencies": {
         "com.unity.textmeshpro": "3.0.6"
