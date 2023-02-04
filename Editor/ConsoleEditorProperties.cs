@@ -8,12 +8,10 @@ namespace TOMICZ.Debugger
         [MenuItem("GameObject/Tomicz/New Console Window")]
         public static void CreateConsolePrefab()
         {
-            string path = "Assets/Plugins/RuntimeConsole/Prefabs/ConsoleWindow.prefab";
-
-            GameObject console = AssetDatabase.LoadAssetAtPath(path, (typeof(GameObject))) as GameObject;
+            GameObject console = Resources.Load<GameObject>("ConsoleWindow");
             var consolePrefab = PrefabUtility.InstantiatePrefab(console) as GameObject;
 
-            SetObjectProperties(consolePrefab.transform);
+            SetObjectProperties(consolePrefab.transform);   
         }
 
         private static void SetObjectProperties(Transform newObject)
