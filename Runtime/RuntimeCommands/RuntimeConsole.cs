@@ -9,7 +9,6 @@ namespace TOMICZ.Debugger
     {
         public static Action OnUnityRunEvent;
 
-        public static List<WindowElement> WindowElementList = new List<WindowElement>();
         public static Stack<DebugLineRenderer> DebugLineRenderers => _debugLineRenderes;
 
         private static RuntimeCommands _runtimeCommands;
@@ -28,8 +27,6 @@ namespace TOMICZ.Debugger
             _tickables.Add(_logWriter);
             _logWriter.ClearLogs();
         }
-
-        public static void AddWindowElement(WindowElement windowElement) => WindowElementList.Add(windowElement);
 
         public static void Log(string message)
         {

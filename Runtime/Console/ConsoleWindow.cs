@@ -99,7 +99,6 @@ namespace TOMICZ.Debugger
         {
             _header.OnConsoleCollapsedEvent += HandleOnConsoleCollapsed;
             _header.OnConsoleFullscreenEvent += HandleOnFullscreenEnabled;
-            _header.OnConsoleTransparentEvent += HandleOnTransparentWindow;
             _header.OnConsoleClickThroughEvent += HandleOnClickThroughEnabled;
             _header.OnConsoleAutoScrollEvent += HandleOnAutoscrollEnabled;
         }
@@ -108,7 +107,6 @@ namespace TOMICZ.Debugger
         {
             _header.OnConsoleCollapsedEvent -= HandleOnConsoleCollapsed;
             _header.OnConsoleFullscreenEvent -= HandleOnFullscreenEnabled;
-            _header.OnConsoleTransparentEvent -= HandleOnTransparentWindow;
             _header.OnConsoleClickThroughEvent -= HandleOnClickThroughEnabled;
             _header.OnConsoleAutoScrollEvent -= HandleOnAutoscrollEnabled;
         }
@@ -121,11 +119,6 @@ namespace TOMICZ.Debugger
         private void HandleOnFullscreenEnabled(bool fullscreen)
         {
             SetWindowMinimized(fullscreen);
-        }
-
-        private void HandleOnTransparentWindow(bool transparent)
-        {
-            SetWindowTransparent(transparent);
         }
 
         private void HandleOnClickThroughEnabled(bool enabled)
@@ -190,14 +183,6 @@ namespace TOMICZ.Debugger
             _backgroundImage.enabled = value;
             _headerDescription.transform.gameObject.SetActive(value);
             _headerOutputText.gameObject.SetActive(!value);
-        }
-
-        private void SetWindowTransparent(bool value)
-        {
-            foreach (var element in RuntimeConsole.WindowElementList)
-            {
-                element.EnableTransperancy(value);
-            }
         }
 
         private void UpdateHeaderOutput(string message)
