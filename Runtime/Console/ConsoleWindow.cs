@@ -37,7 +37,6 @@ namespace TOMICZ.Debugger
         private bool _isAutoScrollingEnabled = true;
         private bool _isEnabled = false;
 
-
         private void Awake()
         {
             SetupDependencies();
