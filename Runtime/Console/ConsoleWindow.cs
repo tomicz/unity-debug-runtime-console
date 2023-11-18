@@ -153,14 +153,6 @@ namespace TOMICZ.Debugger
 
         private void UpdateScrollOnNewInput()
         {
-            if (LogWriter.Messages.Count < 1)
-            {
-                return;
-            }
-
-            var log = LogWriter.Messages.Pop();
-
-            _consoleText.text += $"[{log.type}] {log.log}\n";
             if (_isAutoScrollingEnabled)
             {
                 _scrollRect.verticalNormalizedPosition = 0;

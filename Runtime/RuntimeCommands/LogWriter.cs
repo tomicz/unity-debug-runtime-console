@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -6,8 +5,6 @@ namespace TOMICZ.Debugger
 {
     public class LogWriter
     {
-        public static Stack<LogMessage> Messages = new Stack<LogMessage>();
-
         public string path = Application.persistentDataPath + "/logs.txt";
 
         public void Write(LogMessage logMessage)
@@ -16,8 +13,6 @@ namespace TOMICZ.Debugger
             {
                 writer.WriteLine($"[{logMessage.type}] {logMessage.log}");
             }
-
-            Messages.Push(logMessage);
         }
 
         public void ClearLogs()
