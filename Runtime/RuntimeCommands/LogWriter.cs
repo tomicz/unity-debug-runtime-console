@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TOMICZ.Debugger
 {
-    public class LogWriter : ITick
+    public class LogWriter
     {
         public static Stack<LogMessage> Messages = new Stack<LogMessage>();
 
@@ -26,11 +26,6 @@ namespace TOMICZ.Debugger
             {
                 writer.Write("");
             }
-        }
-
-        public void Tick()
-        {
-
         }
     }
 }
