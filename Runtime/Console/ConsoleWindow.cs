@@ -13,8 +13,6 @@ namespace TOMICZ.Debugger
 
     public class ConsoleWindow : MonoBehaviour, ITick
     {
-        public Action<string> OnLogsUpdatedAction;
-
         [Header("Dependencies")]
         [SerializeField] private TMP_Text _consoleText;
         [SerializeField] private TMP_Text _unityText;
@@ -61,11 +59,9 @@ namespace TOMICZ.Debugger
             UpdateScrollOnNewInput();
         }
 
-        private void UpdateLog(string log)
+        public void UpdateLog(string log)
         {
             _consoleText.text += log + '\n';
-
-            OnLogsUpdatedAction?.Invoke(log);
         }
 
         public void PrintMessage(LogMessage logMessage)
