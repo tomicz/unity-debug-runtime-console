@@ -5,21 +5,13 @@ namespace TOMICZ.Debugger
 {
     public class LogWriter
     {
-        public static string path = Application.persistentDataPath + "/logs.txt";
+        private static string logsPath = Application.persistentDataPath + "/logs.txt";
 
-        public void Write(LogMessage logMessage)
+        public static void Write(LogMessage logMessage)
         {
-            using (StreamWriter writer = new StreamWriter(path, true))
+            using (StreamWriter writer = new StreamWriter(logsPath, true))
             {
                 writer.WriteLine($"[{logMessage.type}] {logMessage.log}");
-            }
-        }
-
-        public void ClearLogs()
-        {
-            using (StreamWriter writer = new StreamWriter(path, false))
-            {
-                writer.Write("");
             }
         }
     }

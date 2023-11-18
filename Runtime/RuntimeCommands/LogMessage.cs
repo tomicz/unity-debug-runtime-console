@@ -2,11 +2,9 @@ namespace TOMICZ.Debugger
 {
     public enum LogMessageType
     {
-        Error,
         Log,
-        Loop,
-        Header,
-        Unity
+        Warrning,
+        Error,
     }
 
     public struct LogMessage
