@@ -160,7 +160,7 @@ namespace TOMICZ.Debugger
 
             var log = LogWriter.Messages.Pop();
 
-            _consoleText.text += $"[{log.type}] {log.message}\n";
+            _consoleText.text += $"[{log.type}] {log.log}\n";
             if (_isAutoScrollingEnabled)
             {
                 _scrollRect.verticalNormalizedPosition = 0;

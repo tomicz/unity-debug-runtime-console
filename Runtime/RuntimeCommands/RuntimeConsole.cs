@@ -27,19 +27,19 @@ namespace TOMICZ.Debugger
             _logWriter.ClearLogs();
         }
 
-        public static void Log(string message)
+        public static void Log(object message)
         {
             _logWriter.Write(new LogMessage(LogMessageType.Log, message));
             Tick();
         }
 
-        public static void Header(string message)
+        public static void Header(object message)
         {
             _logWriter.Write(new LogMessage(LogMessageType.Header, message));
             Tick();
         }
 
-        public static void Error(string message)
+        public static void Error(object message)
         {
             _logWriter.Write(new LogMessage(LogMessageType.Error, message));
             Tick();

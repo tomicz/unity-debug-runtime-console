@@ -14,7 +14,7 @@ namespace TOMICZ.Debugger
         {
             using (StreamWriter writer = new StreamWriter(path, true))
             {
-                writer.WriteLine($"[{logMessage.type}] {logMessage.message}");
+                writer.WriteLine($"[{logMessage.type}] {logMessage.log}");
             }
 
             Messages.Push(logMessage);

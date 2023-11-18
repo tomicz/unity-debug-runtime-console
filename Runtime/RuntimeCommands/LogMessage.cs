@@ -12,15 +12,15 @@ namespace TOMICZ.Debugger
     public struct LogMessage
     {
         public LogMessageType type => _type;
-        public string message => _message;
+        public object log => _log;
 
         private LogMessageType _type;
-        private string _message;
+        private object _log;
 
-        public LogMessage(LogMessageType type, string message)
+        public LogMessage(LogMessageType type, object log)
         {
             _type = type;
-            _message = message;
+            _log = log;
         }
     }
 }
