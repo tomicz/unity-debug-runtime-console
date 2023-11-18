@@ -24,7 +24,6 @@ namespace TOMICZ.Debugger
             _runtimeCommands = new RuntimeCommands();
             _logWriter = new LogWriter();
             _tickables.Add(_consoleWindow);
-            _tickables.Add(_logWriter);
             _logWriter.ClearLogs();
         }
 
