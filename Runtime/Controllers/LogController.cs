@@ -1,3 +1,4 @@
+using TOMICZ.Debugger.Data;
 using UnityEngine;
 
 namespace TOMICZ.Debugger.Controllers

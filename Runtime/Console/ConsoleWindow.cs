@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using TOMICZ.Debugger.Data;
 
 namespace TOMICZ.Debugger
 {

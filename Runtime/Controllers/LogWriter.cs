@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using TOMICZ.Debugger.Data;
 using UnityEngine;
 
 namespace TOMICZ.Debugger.Controllers

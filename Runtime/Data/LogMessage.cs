@@ -1,4 +1,4 @@
-namespace TOMICZ.Debugger
+namespace TOMICZ.Debugger.Data
 {
     public enum LogMessageType
     {
