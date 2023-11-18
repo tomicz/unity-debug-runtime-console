@@ -11,7 +11,7 @@ namespace TOMICZ.Debugger
         Max
     }
 
-    public class ConsoleWindow : MonoBehaviour, ITick
+    public class ConsoleWindow : MonoBehaviour
     {
         [Header("Dependencies")]
         [SerializeField] private TMP_Text _consoleText;
