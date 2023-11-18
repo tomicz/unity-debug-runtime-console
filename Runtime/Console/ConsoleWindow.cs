@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 namespace TOMICZ.Debugger
 {
@@ -12,6 +13,8 @@ namespace TOMICZ.Debugger
 
     public class ConsoleWindow : MonoBehaviour, ITick
     {
+        public Action<string> OnLogsUpdatedAction;
+
         [Header("Dependencies")]
         [SerializeField] private TMP_Text _consoleText;
         [SerializeField] private TMP_Text _unityText;
@@ -53,14 +56,16 @@ namespace TOMICZ.Debugger
             UnregisterHeaderEvents();
         }
 
-        private void Update()
-        {
-            UpdateDebugVisualisers();
-        }
-
         public void Tick()
         {
             UpdateScrollOnNewInput();
+        }
+
+        private void UpdateLog(string log)
+        {
+            _consoleText.text += log + '\n';
+
+            OnLogsUpdatedAction?.Invoke(log);
         }
 
         public void PrintMessage(LogMessage logMessage)
@@ -134,7 +139,6 @@ namespace TOMICZ.Debugger
         private void SetupDependencies()
         {
             _consoleWindowProperties = new ConsoleWindowProperties();
-            RuntimeConsole.Initilise(this);
 
             _consoleRect = GetComponent<RectTransform>();
             _scrollRect = GetComponentInChildren<ScrollRect>();
@@ -190,17 +194,6 @@ namespace TOMICZ.Debugger
             if (_isPersistant)
             {
                 DontDestroyOnLoad(gameObject);
-            }
-        }
-
-        private void UpdateDebugVisualisers()
-        {
-            if(RuntimeConsole.DebugLineRenderers.Count > 0)
-            {
-                foreach (var visualiser in RuntimeConsole.DebugLineRenderers)
-                {
-                    visualiser.UpdatePosition();
-                }
             }
         }
     }
