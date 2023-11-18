@@ -1,10 +1,9 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
 using TOMICZ.Debugger.Data;
 
-namespace TOMICZ.Debugger
+namespace TOMICZ.Debugger.Views
 {
     public enum AnchorPosition
     {
@@ -31,6 +30,9 @@ namespace TOMICZ.Debugger
 
         [Header("Properties")]
         [SerializeField] private bool _isPersistant;
+
+        [Header("Settings")]
+        [SerializeField] private ConsoleViewSettings _consoleViewSettings;
 
         private RectTransform _consoleRect;
         private ConsoleWindowProperties _consoleWindowProperties;
@@ -60,8 +62,30 @@ namespace TOMICZ.Debugger
             UpdateScrollOnNewInput();
         }
 
-        public void UpdateLog(string log)
+        public void UpdateLog(LogMessageType type, string log)
         {
+            SetTextWithColor($"[{type.ToString()}] {log}", GetLogColor(type));
+        }
+
+        private Color GetLogColor(LogMessageType logMessageType)
+        {
+            switch (logMessageType)
+            {
+                case LogMessageType.Log:
+                    return _consoleViewSettings.LogColor;
+                case LogMessageType.Warrning:
+                    return _consoleViewSettings.WarrningColor;
+                case LogMessageType.Error:
+                    return _consoleViewSettings.ErrorCoor;
+                default:
+                    return _consoleViewSettings.LogColor;
+            }
+        }
+
+        private void SetTextWithColor(string text, Color color)
+        {
+            string log = $"<color=#{ColorUtility.ToHtmlStringRGB(color)}>{text}</color>";
+
             _consoleText.text += log + '\n';
         }
 

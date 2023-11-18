@@ -1,4 +1,4 @@
-using System.Collections;
+using TOMICZ.Debugger.Views;
 using UnityEngine;
 
 namespace TOMICZ.Debugger.Controllers

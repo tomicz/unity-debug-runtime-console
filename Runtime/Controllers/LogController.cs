@@ -1,4 +1,5 @@
 using TOMICZ.Debugger.Data;
+using TOMICZ.Debugger.Views;
 using UnityEngine;
 
 namespace TOMICZ.Debugger.Controllers
@@ -23,7 +24,7 @@ namespace TOMICZ.Debugger.Controllers
 
         private void TickMessage(LogMessage logMessage)
         {
-            _consoleWindow.UpdateLog(logMessage.log.ToString());
+            _consoleWindow.UpdateLog(logMessage.type, logMessage.log.ToString());
         }
     }
 }

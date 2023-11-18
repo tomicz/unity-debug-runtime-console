@@ -1,3 +1,5 @@
+using System;
+
 namespace TOMICZ.Debugger.Data
 {
     public enum LogMessageType
