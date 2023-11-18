@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
 
-namespace TOMICZ.Debugger
+namespace TOMICZ.Debugger.Controllers
 {
     public class LogReader
     {
@@ -48,9 +47,6 @@ namespace TOMICZ.Debugger
                     }
                 }
             }
-
-            // Now last20Lines contains the last 20 lines of the file
-            Debug.Log("Last 20 lines:");
 
             foreach (string lastLine in last20Lines)
             {

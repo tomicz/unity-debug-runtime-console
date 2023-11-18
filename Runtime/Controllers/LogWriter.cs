@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using UnityEngine;
 
-namespace TOMICZ.Debugger
+namespace TOMICZ.Debugger.Controllers
 {
     public class LogWriter
     {
