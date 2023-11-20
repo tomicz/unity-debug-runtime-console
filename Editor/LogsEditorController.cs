@@ -6,9 +6,22 @@ using System.IO;
 
 namespace TOMICZ.Debugger
 {
-    public class LogsEditorController
+    public static class LogsEditorController
     {
         private static string _logsPath = Application.persistentDataPath + "/logs.txt";
+
+        static LogsEditorController()
+        {
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+        }
+
+        private static void OnPlayModeStateChanged(PlayModeStateChange currentState)
+        {
+            if(currentState == PlayModeStateChange.ExitingEditMode)
+            {
+                ClearLogs();
+            }
+        }
 
         [MenuItem("Tomicz/Debugger/Open Logs", false)]
         private static void OpenLogs()
