@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TOMICZ.Debugger.Controllers
 {
-    public class LogReader
+    public static class LogReader
     {
         private static string logsPath = Application.persistentDataPath + "/logs.txt";
 
@@ -51,14 +51,6 @@ namespace TOMICZ.Debugger.Controllers
             foreach (string lastLine in last20Lines)
             {
                 Debug.Log(lastLine);
-            }
-        }
-
-        public static void ClearLogs()
-        {
-            using (StreamWriter writer = new StreamWriter(logsPath, false))
-            {
-                writer.Write("");
             }
         }
     }

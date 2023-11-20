@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TOMICZ.Debugger.Controllers
 {
-    public class LogWriter
+    public static class LogWriter
     {
         public static Action<LogMessage> OnLogWrittenAction;
 

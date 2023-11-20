@@ -4,7 +4,7 @@ using TOMICZ.Debugger.Data;
 
 namespace TOMICZ.Debugger
 {
-    public class RuntimeConsole
+    public static class RuntimeConsole
     {
         public static Action OnUnityRunEvent;
 
